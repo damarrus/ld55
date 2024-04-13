@@ -36,8 +36,11 @@ public class GameController : MonoBehaviour
     int maxSlotCount = 12;
     int curSlotCount = 0;
 
-    public delegate void PayEventHandler(Slot slot);
-    public static event PayEventHandler PayEvent;
+    public delegate void PayStartEventHandler(Slot slot);
+    public static event PayStartEventHandler PayStartEvent;
+
+    public delegate void PayEndEventHandler(Slot slot);
+    public static event PayEndEventHandler PayEndEvent;
 
     void Start()
     {
@@ -160,7 +163,7 @@ public class GameController : MonoBehaviour
                 {
                     filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
                 }
-                PayEvent += SnakePayHandlerMethod;
+                PayEndEvent += SnakePayHandlerMethod;
                 if (!slot.isImproved)
                 {
                     var activeSlot = GetFirstActiveEmptySlot();
@@ -171,7 +174,7 @@ public class GameController : MonoBehaviour
                 }
             }, (slot) =>
             {
-                PayEvent -= SnakePayHandlerMethod;
+                PayEndEvent -= SnakePayHandlerMethod;
                 if (!slot.isImproved)
                 {
                     var blockedSlot = slots.Find(s => s.id == slot.paramInt);
@@ -187,20 +190,21 @@ public class GameController : MonoBehaviour
             {
                 if (slot.isImproved)
                 {
-                    PayEvent += EyeImprovedPayHandlerMethod;
-                } else
+                    PayStartEvent += EyeImprovedPayHandlerMethod;
+                } 
+                else
                 {
-                    PayEvent += EyePayHandlerMethod;
+                    PayStartEvent += EyePayHandlerMethod;
                 }
             }, (slot) =>
             {
                 if (slot.isImproved)
                 {
-                    PayEvent -= EyeImprovedPayHandlerMethod;
+                    PayStartEvent -= EyeImprovedPayHandlerMethod;
                 }
                 else
                 {
-                    PayEvent -= EyePayHandlerMethod;
+                    PayStartEvent -= EyePayHandlerMethod;
                 }
             }
         ));
@@ -216,7 +220,7 @@ public class GameController : MonoBehaviour
 
             }
         ));
-        recipes.Add(InitializeRecipe(10, 3, 0, 10, "Spider", "Increase increment B +2",
+        recipes.Add(InitializeRecipe(10, 3, 0, 10, "Spider", "Increase increment B +1",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -335,19 +339,15 @@ public class GameController : MonoBehaviour
         UpdateCurrency(0, 3);
     }
 
-    void Update()
-    {
-        
-    }
-
     public void PayRecipe(Recipe recipe)
     {
         var slot = GetFirstActiveEmptySlot();
         if (slot != null && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
+            PayStartEvent(slot);
             slot.setRecipe(recipe);
-            PayEvent(slot);
+            PayEndEvent(slot);
         }
     }
 

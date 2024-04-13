@@ -166,7 +166,6 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-
         recipes.Add(InitializeRecipe(3, 3, 0, 10, "Snake", "Increases life time",
             (slot) =>
             {
@@ -182,6 +181,31 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 PayEvent -= SnakePayHandlerMethod;
+            }
+        ));
+        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Eye", "Gives 1 B when summoned",
+            (slot) =>
+            {
+                slot.increaseLifeTime(slot.lifeTimeMax);
+            }, (slot) =>
+            {
+                if (slot.isImproved)
+                {
+                    PayEvent += EyeImprovedPayHandlerMethod;
+                } else
+                {
+                    PayEvent += EyePayHandlerMethod;
+                }
+            }, (slot) =>
+            {
+                if (slot.isImproved)
+                {
+                    PayEvent -= EyeImprovedPayHandlerMethod;
+                }
+                else
+                {
+                    PayEvent -= EyePayHandlerMethod;
+                }
             }
         ));
 
@@ -206,9 +230,19 @@ public class GameController : MonoBehaviour
 
     }
 
-    public static void SnakePayHandlerMethod(Slot slot)
+    public void SnakePayHandlerMethod(Slot slot)
     {
         slot.increaseLifeTime(slot.lifeTimeMax);
+    }
+
+    public void EyePayHandlerMethod(Slot slot)
+    {
+        UpdateCurrency(0, 1);
+    }
+
+    public void EyeImprovedPayHandlerMethod(Slot slot)
+    {
+        UpdateCurrency(0, 3);
     }
 
     void Update()
@@ -223,7 +257,7 @@ public class GameController : MonoBehaviour
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
             slot.setRecipe(recipe);
-
+            PayEvent(slot);
         }
     }
 

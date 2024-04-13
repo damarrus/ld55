@@ -14,6 +14,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int currencyA = 0;
     public int currencyB = 0;
     public int lifeTime = 0;
+    public int improvedLifeTime = 0;
     public delegate void ImprovedAction(Slot slot);
     public ImprovedAction improvedAction;
     public delegate void StartAction(Slot slot);
@@ -22,6 +23,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public EndAction endAction;
     GameObject tooltipObject = null;
 
+    public bool revealed = false;
     public bool available = false;
 
     public void Pay()
@@ -37,12 +39,21 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void SetRevealed()
+    {
+        if (!revealed)
+        {
+            revealed = true;
+            gameObject.SetActive(true);
+        }
     }
 
     public void CheckAndSetAvailable(int cur1, int cur2)
@@ -56,7 +67,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             available = newAvailable;
         }
-        
     }
 
     public void UpdateText()

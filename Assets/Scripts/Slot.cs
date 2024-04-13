@@ -56,22 +56,23 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public void setRecipe(Recipe rec, int improvedChance = 20)
+    public void setRecipe(Recipe rec, int improvedChance = -1)
     {
         var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
         var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
 
-
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
-            increaseLifeTime(rec.lifeTime);
+            improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
+            
             if (Random.Range(0, 100) < improvedChance)
             {
                 isImproved = true;
                 rec.improvedAction(this);
                 nameTextComponent.color = Color.green;
             }
+            increaseLifeTime(isImproved ? rec.improvedLifeTime : rec.lifeTime);
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             ltCoroutine = StartCoroutine(lifeTimeCoroutine());
             recipe = rec;

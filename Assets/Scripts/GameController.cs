@@ -208,16 +208,28 @@ public class GameController : MonoBehaviour
                 }
             }
         ));
-        recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives x2 A",
+        //recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives x2 A",
+        //    (slot) =>
+        //    {
+
+        //    }, (slot) =>
+        //    {
+        //        UpdateCurrency(currencyA * (slot.isImproved ? 3 : 2), 0);
+        //    }, (slot) =>
+        //    {
+
+        //    }
+        //));
+        recipes.Add(InitializeRecipe(10, 3, 0, 10, "Spider", "Increase increment B +2",
             (slot) =>
             {
-
+                slot.increaseLifeTime(slot.lifeTimeMax);
             }, (slot) =>
             {
-                UpdateCurrency(currencyA * (slot.isImproved ? 3 : 2), 0);
+                UpdateCurrencyIncr(0, slot.isImproved ? 2 : 1);
             }, (slot) =>
             {
-
+                UpdateCurrencyIncr(0, slot.isImproved ? -2 : -1);
             }
         ));
 

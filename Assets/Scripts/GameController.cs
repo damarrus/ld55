@@ -161,9 +161,22 @@ public class GameController : MonoBehaviour
                     filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
                 }
                 PayEvent += SnakePayHandlerMethod;
+                if (!slot.isImproved)
+                {
+                    var activeSlot = GetFirstActiveEmptySlot();
+                    if (activeSlot == null) activeSlot = slots[0];
+
+                    activeSlot.setActive(false);
+                    slot.paramInt = activeSlot.id;
+                }
             }, (slot) =>
             {
                 PayEvent -= SnakePayHandlerMethod;
+                if (!slot.isImproved)
+                {
+                    var blockedSlot = slots.Find(s => s.id == slot.paramInt);
+                    blockedSlot.setActive(true);
+                }
             }
         ));
         recipes.Add(InitializeRecipe(8, 3, 0, 10, "Eye", "Gives 1 B when summoned",

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,7 +35,8 @@ public class GameController : MonoBehaviour
     int startSlotCount = 4;
     int minSlotCount = 1;
     int maxSlotCount = 12;
-    int curSlotCount = 0;
+
+    Dictionary<int, int> RecipesOrder { get; set; }
 
     public delegate void PayStartEventHandler(Slot slot);
     public static event PayStartEventHandler PayStartEvent;
@@ -42,8 +44,29 @@ public class GameController : MonoBehaviour
     public delegate void PayEndEventHandler(Slot slot);
     public static event PayEndEventHandler PayEndEvent;
 
+    void InitConfig()
+    {
+        RecipesOrder = new Dictionary<int, int>()
+        { // recipeSlotID : recipeID
+            { 1, 1   }, { 2, 2   },
+            { 3, 3   }, { 4, 4   },
+            { 5, 5   }, { 6, 6   },
+            { 7, 7   }, { 8, 8   },
+            { 9, 9   }, { 10, 10 },
+            { 11, 11 }, { 12, 12 },
+            { 13, 13 }, { 14, 14 },
+            {       15, 15       }
+        };
+    }
+
     void Start()
     {
+        // TODO убрать общий такт. Везде сделать индивидуально
+        // TODO вынести параметры отдельно
+        // TODO скрывать изначально все рецепты, список id => [ id, id ]
+
+        InitConfig();
+
         Currency1Component.text = currencyA.ToString();
         Currency2Component.text = currencyB.ToString();
 
@@ -55,10 +78,10 @@ public class GameController : MonoBehaviour
                 slot.increaseLifeTime(slot.lifeTimeMax);
             }, (slot) =>
             {
-                UpdateCurrencyIncr(5, 0);
+                UpdateCurrencyIncr(slot.isImproved ? 10 : 5, 0);
             }, (slot) => 
             {
-                UpdateCurrencyIncr(-5, 0);
+                UpdateCurrencyIncr(slot.isImproved ? -10 : -5, 0);
             }
         ));
         recipes.Add(InitializeRecipe(2, 5, 0, 30, "Greed", "Increase max A/B x2",
@@ -303,16 +326,6 @@ public class GameController : MonoBehaviour
         ));
 
 
-
-        for (int i = 0; i < recipes.Count; i++)
-        {
-            recipes[i].transform.localPosition = new Vector2(0f, 250f - 70f * i);
-            recipes[i].InitTooltip();
-        }
-
-        curSlotCount = startSlotCount;
-
-
         for (int i = 1; i <= maxSlotCount; i++)
         {
             var slot = slotsContainer.transform.Find("SlotPrefab" + i.ToString()).GetComponent<Slot>();
@@ -423,9 +436,10 @@ public class GameController : MonoBehaviour
         int id, int currency1, int currency2, int lifeTime, string nameText, string descriptionText,
         Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.EndAction endAction)
     {
-        GameObject newItem = Instantiate(recipePrefab, recipesContainer.transform);
+        var recipeSlotId = RecipesOrder.FirstOrDefault(x => x.Value == id).Key;
+        var recipePrefabObject = recipesContainer.transform.Find("RecipePrefab" + recipeSlotId.ToString()).gameObject;
 
-        var recipe = newItem.GetComponent<Recipe>();
+        var recipe = recipePrefabObject.GetComponent<Recipe>();
         recipe.gameController = this;
         recipe.id = id;
         recipe.nameText = nameText;

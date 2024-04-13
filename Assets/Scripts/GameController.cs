@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyIncr(-2, 0);
             }
         ));
-        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A x2",
+        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A/B x2",
             (slot) =>
             {
                 slot.lifeTimeLeft *= 2;
@@ -72,22 +72,8 @@ public class GameController : MonoBehaviour
                 UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2, true);
             }
         ));
-        recipes.Add(InitializeRecipe(3, 25, 0, 60, "Godzilla", "Increase increment A +2",
-            (slot) =>
-            {
-                slot.lifeTimeLeft *= 2;
-            }, (slot) =>
-            {
-                currencyAIncr += 5;
-            }, (slot) =>
-            {
 
-            }, (slot) =>
-            {
-                currencyAIncr -= 5;
-            }
-        ));
-        recipes.Add(InitializeRecipe(4, 3, 0, 25, "RatMother", "Spawn rats every 3s",
+        recipes.Add(InitializeRecipe(3, 3, 0, 25, "RatMother", "Spawn rats every 3s",
             (slot) =>
             {
                 slot.isImproved = true;
@@ -108,7 +94,23 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        
+        recipes.Add(InitializeRecipe(4, 3, 0, 10, "Mushroom", "After death gives 10 A",
+            (slot) =>
+            {
+                
+            }, (slot) =>
+            {
+                
+
+            }, (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                UpdateCurrency(slot.isImproved ? 100 : 10, 0);
+            }
+        ));
+
 
         for (int i = 0; i < recipes.Count; i++)
         {

@@ -208,18 +208,18 @@ public class GameController : MonoBehaviour
                 }
             }
         ));
-        //recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives x2 A",
-        //    (slot) =>
-        //    {
+        recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives x2 A",
+            (slot) =>
+            {
 
-        //    }, (slot) =>
-        //    {
-        //        UpdateCurrency(currencyA * (slot.isImproved ? 3 : 2), 0);
-        //    }, (slot) =>
-        //    {
+            }, (slot) =>
+            {
+                UpdateCurrency(currencyA * (slot.isImproved ? 3 : 2), 0);
+            }, (slot) =>
+            {
 
-        //    }
-        //));
+            }
+        ));
         recipes.Add(InitializeRecipe(10, 3, 0, 10, "Spider", "Increase increment B +2",
             (slot) =>
             {
@@ -230,6 +230,18 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 UpdateCurrencyIncr(0, slot.isImproved ? -2 : -1);
+            }
+        ));
+        recipes.Add(InitializeRecipe(11, 3, 0, 10, "Fire", "Increase increment A/B x2",
+            (slot) =>
+            {
+                slot.increaseLifeTime(slot.lifeTimeMax);
+            }, (slot) =>
+            {
+                UpdateCurrencyMult(slot.isImproved ? 2 : 1, slot.isImproved ? 2 : 1);
+            }, (slot) =>
+            {
+                UpdateCurrencyMult(slot.isImproved ? -2 : -1, slot.isImproved ? -2 : -1);
             }
         ));
 
@@ -306,6 +318,14 @@ public class GameController : MonoBehaviour
     {
         currencyAIncr += deltaIncrCurrencyA;
         currencyBIncr += deltaIncrCurrencyB;
+
+        UpdateCurrencyText();
+    }
+
+    void UpdateCurrencyMult(int deltaMultCurrencyA, int deltaMultCurrencyB)
+    {
+        currencyAMult += deltaMultCurrencyA;
+        currencyBMult += deltaMultCurrencyB;
 
         UpdateCurrencyText();
     }

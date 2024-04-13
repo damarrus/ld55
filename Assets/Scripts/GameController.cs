@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour
 
     int startSlotCount = 4;
     int minSlotCount = 1;
-    int maxSlotCount = 32;
+    int maxSlotCount = 12;
     int curSlotCount = 0;
 
     void Start()
@@ -47,13 +47,13 @@ public class GameController : MonoBehaviour
                 slot.lifeTimeLeft *= 2;
             }, (slot) =>
             {
-                UpdateCurrencyIncr(2, 0);
+                UpdateCurrencyIncr(5, 3);
             }, (slot) =>
             {
 
             }, (slot) => 
             {
-                UpdateCurrencyIncr(-2, 0);
+                UpdateCurrencyIncr(-5, -3);
             }
         ));
         recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A/B x2",
@@ -94,7 +94,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(4, 3, 0, 10, "Mushroom", "After death gives 10 A",
+        recipes.Add(InitializeRecipe(4, 0, 1, 10, "Mushroom", "After death gives 10 A",
             (slot) =>
             {
                 
@@ -120,14 +120,12 @@ public class GameController : MonoBehaviour
 
         curSlotCount = startSlotCount;
 
-        for (int i = 0; i < maxSlotCount; i++)
+
+        for (int i = 1; i <= maxSlotCount; i++)
         {
-            var slot = InitializeSlot();
-            slot.transform.localPosition = new Vector2(0f, 250f - 100f * i);
-            if (i >= startSlotCount)
-            {
-                slot.setActive(false);
-            }
+            var slot = slotsContainer.transform.Find("SlotPrefab" + i.ToString()).GetComponent<Slot>();
+            if (i > startSlotCount) slot.setActive(false);
+
             slots.Add(slot);
         }
 
@@ -230,14 +228,6 @@ public class GameController : MonoBehaviour
         recipe.UpdateText();
 
         return recipe;
-    }
-
-    Slot InitializeSlot()
-    {
-        GameObject newItem = Instantiate(slotPrefab, slotsContainer.transform);
-
-        var slot = newItem.GetComponent<Slot>();
-        return slot;
     }
 
     IEnumerator MainCoroutine()

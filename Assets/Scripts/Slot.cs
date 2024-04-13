@@ -34,12 +34,14 @@ public class Slot : MonoBehaviour
         if (!active && recipe == null)
         {
             nameTextComponent.text = "Blocked";
+            nameTextComponent.color = Color.red;
             lifeTimeTextComponent.text = "";
         }
 
         if (active)
         {
             nameTextComponent.text = "Empty";
+            nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
         }
     }

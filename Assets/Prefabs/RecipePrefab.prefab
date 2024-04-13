@@ -271,6 +271,7 @@ MonoBehaviour:
   gameController: {fileID: 0}
   id: 0
   nameText: 
+  descriptionText: 
   currencyA: 0
   currencyB: 0
   lifeTime: 0
@@ -315,7 +316,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 9088878019275853172}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

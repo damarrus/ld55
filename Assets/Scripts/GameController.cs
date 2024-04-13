@@ -244,6 +244,22 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyMult(slot.isImproved ? -2 : -1, slot.isImproved ? -2 : -1);
             }
         ));
+        recipes.Add(InitializeRecipe(6, 3, 0, 10, "Octopus", "Gives 1 A for each demons every 2s",
+            (slot) =>
+            {
+                slot.increaseLifeTime(slot.lifeTimeMax);
+            }, (slot) =>
+            {
+                slot.actionCoroutine = StartCoroutine(Do(() =>
+                {
+                    var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+                    UpdateCurrency(1 * filteredSlots.Count, 0);
+                }, 2));
+            }, (slot) =>
+            {
+                StopCoroutine(slot.actionCoroutine);
+            }
+        ));
 
 
 

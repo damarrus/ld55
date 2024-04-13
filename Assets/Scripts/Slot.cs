@@ -44,7 +44,7 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public void setRecipe(Recipe rec)
+    public void setRecipe(Recipe rec, int improvedChance = 20)
     {
         var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
         var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
@@ -52,13 +52,9 @@ public class Slot : MonoBehaviour
 
         if (rec != null )
         {
-            
-
-
-
             nameTextComponent.text = rec.nameText;
             lifeTimeLeft = rec.lifeTime;
-            if (Random.Range(0, 100) < 20)
+            if (Random.Range(0, 100) < improvedChance)
             {
                 isImproved = true;
                 rec.improvedAction(this);

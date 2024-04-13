@@ -89,13 +89,13 @@ public class GameController : MonoBehaviour
         recipes.Add(InitializeRecipe(4, 3, 0, 25, "RatMother", "Spawn rats every 3s",
             (slot) =>
             {
-                slot.lifeTimeLeft *= 2;
+                slot.isImproved = true;
             }, (slot) =>
             {
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
                     var slot = GetFirstActiveEmptySlot();
-                    if (slot != null) slot.setRecipe(recipes[0]);
+                    if (slot != null) slot.setRecipe(recipes[0], slot.isImproved ? 50 : 0);
                     
                 }, 3));
 

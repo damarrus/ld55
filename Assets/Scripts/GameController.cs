@@ -47,13 +47,10 @@ public class GameController : MonoBehaviour
                 slot.lifeTimeLeft *= 2;
             }, (slot) =>
             {
-                UpdateCurrencyIncr(5, 3);
-            }, (slot) =>
-            {
-
+                UpdateCurrencyIncr(5, 0);
             }, (slot) => 
             {
-                UpdateCurrencyIncr(-5, -3);
+                UpdateCurrencyIncr(-5, 0);
             }
         ));
         recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A/B x2",
@@ -66,14 +63,11 @@ public class GameController : MonoBehaviour
 
             }, (slot) =>
             {
-
-            }, (slot) =>
-            {
                 UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2, true);
             }
         ));
 
-        recipes.Add(InitializeRecipe(3, 3, 0, 25, "RatMother", "Spawn rats every 3s",
+        recipes.Add(InitializeRecipe(13, 3, 0, 25, "RatMother", "Spawn rats every 3s",
             (slot) =>
             {
                 slot.isImproved = true;
@@ -88,9 +82,6 @@ public class GameController : MonoBehaviour
 
             }, (slot) =>
             {
-
-            }, (slot) =>
-            {
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
@@ -98,10 +89,6 @@ public class GameController : MonoBehaviour
             (slot) =>
             {
                 
-            }, (slot) =>
-            {
-                
-
             }, (slot) =>
             {
 
@@ -127,15 +114,30 @@ public class GameController : MonoBehaviour
                 }
             }, (slot) =>
             {
-
-            }, (slot) =>
-            {
                 slot.paramListInt.ForEach(slotId =>
                 {
                     var s = slots.Find(slot => slot.id == slotId);
                     s.setActive(false);
                 });
                 slot.paramListInt = new List<int>();
+            }
+        ));
+        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Trader", "Convert 10 A to 1 B",
+            (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                slot.actionCoroutine = StartCoroutine(Do(() =>
+                {
+                    var rateA = slot.isImproved ? 8 : 10;
+                    var rateB = slot.isImproved ? 4 : 3;
+                    if (currencyA >= rateA) UpdateCurrency(-rateA, rateB);
+
+                }, 3));
+            }, (slot) =>
+            {
+                StopCoroutine(slot.actionCoroutine);
             }
         ));
 
@@ -237,7 +239,7 @@ public class GameController : MonoBehaviour
 
     Recipe InitializeRecipe(
         int id, int currency1, int currency2, int lifeTime, string nameText, string descriptionText,
-        Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.DuringAction duringAction, Recipe.EndAction endAction)
+        Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.EndAction endAction)
     {
         GameObject newItem = Instantiate(recipePrefab, recipesContainer.transform);
 
@@ -251,7 +253,6 @@ public class GameController : MonoBehaviour
         recipe.lifeTime = lifeTime;
         recipe.improvedAction = improvedAction;
         recipe.startAction = startAction;
-        recipe.duringAction = duringAction;
         recipe.endAction = endAction;
 
         recipe.UpdateText();

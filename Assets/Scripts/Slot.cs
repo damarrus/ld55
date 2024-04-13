@@ -101,7 +101,6 @@ public class Slot : MonoBehaviour
             var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             yield return new WaitForSeconds(1f);
-            recipe.duringAction(this);
 
             --lifeTimeLeft;
         }

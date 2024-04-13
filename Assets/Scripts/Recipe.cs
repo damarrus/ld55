@@ -18,8 +18,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public ImprovedAction improvedAction;
     public delegate void StartAction(Slot slot);
     public StartAction startAction;
-    public delegate void DuringAction(Slot slot);
-    public DuringAction duringAction;
     public delegate void EndAction(Slot slot);
     public EndAction endAction;
     GameObject tooltipObject = null;

@@ -140,11 +140,33 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
+        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Glutton", "Convert 1 demon to 1 B",
+            (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                slot.actionCoroutine = StartCoroutine(Do(() =>
+                {
+                    var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+                    if (filteredSlots.Count > 0)
+                    {
+                        System.Random random = new System.Random();
+                        int randomIndex = random.Next(0, filteredSlots.Count);
+                        filteredSlots[randomIndex].setRecipe(null);
+                        UpdateCurrency(0, slot.isImproved ? 3 : 1);
+                    }
+                }, 3));
+            }, (slot) =>
+            {
+                StopCoroutine(slot.actionCoroutine);
+            }
+        ));
 
 
         for (int i = 0; i < recipes.Count; i++)
         {
-            recipes[i].transform.localPosition = new Vector2(0f, 250f - 100f * i);
+            recipes[i].transform.localPosition = new Vector2(0f, 250f - 70f * i);
             recipes[i].InitTooltip();
         }
 
@@ -267,19 +289,6 @@ public class GameController : MonoBehaviour
             UpdateCurrency(currencyADelta, currencyBDelta);
             yield return new WaitForSeconds(1f);
         }
-    }
-
-    Slot GetFirstActiveSlot()
-    {
-        foreach (Slot slot in slots)
-        {
-            if (slot.active)
-            {
-                return slot;
-            }
-        }
-
-        return null;
     }
 
     Slot GetFirstActiveEmptySlot()

@@ -22,6 +22,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public EndAction endAction;
     GameObject tooltipObject = null;
 
+    public bool revealed = false;
     public bool available = false;
 
     public void Pay()
@@ -43,6 +44,15 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void SetRevealed()
+    {
+        if (!revealed)
+        {
+            revealed = true;
+            gameObject.SetActive(true);
+        }
     }
 
     public void CheckAndSetAvailable(int cur1, int cur2)

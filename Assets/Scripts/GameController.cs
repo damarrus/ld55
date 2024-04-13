@@ -37,12 +37,14 @@ public class GameController : MonoBehaviour
     int maxSlotCount = 12;
 
     Dictionary<int, int> RecipesOrder { get; set; }
+    Dictionary<int, List<int>> RecipesReveal { get; set; }
+    List<int> RecipesRevealedOnStart { get; set; }
 
     public delegate void PayStartEventHandler(Slot slot);
-    public static event PayStartEventHandler PayStartEvent;
+    public event PayStartEventHandler PayStartEvent;
 
     public delegate void PayEndEventHandler(Slot slot);
-    public static event PayEndEventHandler PayEndEvent;
+    public event PayEndEventHandler PayEndEvent;
 
     void InitConfig()
     {
@@ -56,6 +58,26 @@ public class GameController : MonoBehaviour
             { 11, 11 }, { 12, 12 },
             { 13, 13 }, { 14, 14 },
             {       15, 15       }
+        };
+
+        RecipesRevealedOnStart = new List<int>() { 1, 2, 3, 15 };
+        RecipesReveal = new Dictionary<int, List<int>>()
+        {
+            { 1,  new List<int>() {  } }, 
+            { 2,  new List<int>() { 4 } }, 
+            { 3,  new List<int>() { 4 } },
+            { 4,  new List<int>() { 5, 6 } },
+            { 5,  new List<int>() { 7, 8, 9 } },
+            { 6,  new List<int>() { 7, 8, 9 } },
+            { 7,  new List<int>() { 10, 11, 12 } },
+            { 8,  new List<int>() { 10, 11, 12 } },
+            { 9,  new List<int>() { 10, 11, 12 } },
+            { 10, new List<int>() { 13 } },
+            { 11, new List<int>() { 13 } },
+            { 12, new List<int>() { 13 } },
+            { 13, new List<int>() { 14 } },
+            { 14, new List<int>() {  } },
+            { 15, new List<int>() {  } },
         };
     }
 
@@ -358,9 +380,16 @@ public class GameController : MonoBehaviour
         if (slot != null && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
-            PayStartEvent(slot);
+
+            PayStartEvent?.Invoke(slot);
             slot.setRecipe(recipe);
-            PayEndEvent(slot);
+            PayEndEvent?.Invoke(slot);
+
+            RecipesReveal.TryGetValue(recipe.id, out var revealedRecipes);
+            foreach (var revealedRecipeId in revealedRecipes)
+            {
+                recipes.Find(r => r.id == revealedRecipeId).SetRevealed();
+            }
         }
     }
 
@@ -433,7 +462,7 @@ public class GameController : MonoBehaviour
     }
 
     Recipe InitializeRecipe(
-        int id, int currency1, int currency2, int lifeTime, string nameText, string descriptionText,
+        int id, int currencyA, int currencyB, int lifeTime, string nameText, string descriptionText,
         Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.EndAction endAction)
     {
         var recipeSlotId = RecipesOrder.FirstOrDefault(x => x.Value == id).Key;
@@ -444,12 +473,19 @@ public class GameController : MonoBehaviour
         recipe.id = id;
         recipe.nameText = nameText;
         recipe.descriptionText = descriptionText;
-        recipe.currencyA = currency1;
-        recipe.currencyB = currency2;
+        recipe.currencyA = currencyA;
+        recipe.currencyB = currencyB;
         recipe.lifeTime = lifeTime;
         recipe.improvedAction = improvedAction;
         recipe.startAction = startAction;
         recipe.endAction = endAction;
+        if (RecipesRevealedOnStart.Contains(id))
+        {
+            recipe.SetRevealed();
+        } else
+        {
+            recipePrefabObject.SetActive(false);
+        }
 
         recipe.UpdateText();
 

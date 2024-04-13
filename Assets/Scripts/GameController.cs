@@ -110,6 +110,34 @@ public class GameController : MonoBehaviour
                 UpdateCurrency(slot.isImproved ? 100 : 10, 0);
             }
         ));
+        recipes.Add(InitializeRecipe(5, 0, 1, 10, "Druid", "Gives 3 slots",
+            (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                var slotsCount = slot.isImproved ? 5 : 3;
+                for (int i = 1; i <= slotsCount; i++)
+                {
+                    var blockedSlot = GetFirstBlockedSlot();
+                    if (blockedSlot == null) break;
+
+                    blockedSlot.setActive(true);
+                    slot.paramListInt.Add(blockedSlot.id);
+                }
+            }, (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                slot.paramListInt.ForEach(slotId =>
+                {
+                    var s = slots.Find(slot => slot.id == slotId);
+                    s.setActive(false);
+                });
+                slot.paramListInt = new List<int>();
+            }
+        ));
 
 
         for (int i = 0; i < recipes.Count; i++)
@@ -124,6 +152,7 @@ public class GameController : MonoBehaviour
         for (int i = 1; i <= maxSlotCount; i++)
         {
             var slot = slotsContainer.transform.Find("SlotPrefab" + i.ToString()).GetComponent<Slot>();
+            slot.id = i;
             if (i > startSlotCount) slot.setActive(false);
 
             slots.Add(slot);
@@ -239,11 +268,45 @@ public class GameController : MonoBehaviour
         }
     }
 
+    Slot GetFirstActiveSlot()
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.active)
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
     Slot GetFirstActiveEmptySlot()
     {
         foreach (Slot slot in slots)
         {
             if (slot.active && slot.recipe == null)
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
+    Slot GetFirstBlockedSlot()
+    {
+        foreach (Slot slot in slots)
+        {
+            if (!slot.active && slot.recipe != null)
+            {
+                return slot;
+            }
+        }
+
+        foreach (Slot slot in slots)
+        {
+            if (!slot.active)
             {
                 return slot;
             }

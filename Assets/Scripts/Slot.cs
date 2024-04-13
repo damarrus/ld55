@@ -6,13 +6,15 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     public GameController gameController;
+    public int id = 0;
     public Recipe recipe = null;
     public int lifeTimeLeft = 0;
     public Coroutine ltCoroutine = null;
     public bool active = true;
     public Coroutine actionCoroutine = null;
     public bool isImproved = false;
-
+    public int paramInt = 0;
+    public List<int> paramListInt = new List<int>();
 
     void Start()
     {
@@ -30,6 +32,12 @@ public class Slot : MonoBehaviour
         active = act;
         var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
         var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
+        var pentagramTextComponent = transform.Find("Pentagram").GetComponent<TMP_Text>();
+
+        if (!active)
+        {
+            pentagramTextComponent.text = "";
+        }
 
         if (!active && recipe == null)
         {
@@ -43,6 +51,7 @@ public class Slot : MonoBehaviour
             nameTextComponent.text = "Empty";
             nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
+            pentagramTextComponent.text = "*";
         }
     }
 
@@ -64,23 +73,25 @@ public class Slot : MonoBehaviour
             }
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             ltCoroutine = StartCoroutine(lifeTimeCoroutine());
+            recipe = rec;
             rec.startAction(this);
         } else
         {
             nameTextComponent.text = "Empty";
             nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
+            
+            StopCoroutine(ltCoroutine);
+            recipe.endAction(this);
+            isImproved = false;
+            recipe = rec;
             if (!active)
             {
                 setActive(false);
             }
-
-            StopCoroutine(ltCoroutine);
-            recipe.endAction(this);
-            isImproved = false;
         }
 
-        recipe = rec;
+        
     }
 
     IEnumerator lifeTimeCoroutine()

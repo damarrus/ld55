@@ -86,13 +86,13 @@ public class GameController : MonoBehaviour
                 currencyAIncr -= 5;
             }
         ));
-        recipes.Add(InitializeRecipe(4, 3, 0, 25, "RatMother", "Spawn rats every 5s",
+        recipes.Add(InitializeRecipe(4, 3, 0, 25, "RatMother", "Spawn rats every 3s",
             (slot) =>
             {
                 slot.lifeTimeLeft *= 2;
             }, (slot) =>
             {
-                StartCoroutine(Do(() =>
+                slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
                     var slot = GetFirstActiveEmptySlot();
                     if (slot != null) slot.setRecipe(recipes[0]);
@@ -104,10 +104,10 @@ public class GameController : MonoBehaviour
 
             }, (slot) =>
             {
-                UpdateCurrencyIncr(-2, 0);
+                StopCoroutine(slot.actionCoroutine);
             }
         ));
-
+        
 
         for (int i = 0; i < recipes.Count; i++)
         {

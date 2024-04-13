@@ -58,7 +58,7 @@ public class Slot : MonoBehaviour
 
             nameTextComponent.text = rec.nameText;
             lifeTimeLeft = rec.lifeTime;
-            if (Random.Range(0, 100) < 50)
+            if (Random.Range(0, 100) < 20)
             {
                 isImproved = true;
                 rec.improvedAction(this);

@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
 
         StartCoroutine(MainCoroutine());
 
-        recipes.Add(InitializeRecipe(1, 3, 0, 5, "Rat", "Increase increment A +2",
+        recipes.Add(InitializeRecipe(1, 3, 0, 5, "Cat", "Increase increment A +2",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyIncr(-5, 0);
             }
         ));
-        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A/B x2",
+        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Greed", "Increase max A/B x2",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour
             }
         ));
 
-        recipes.Add(InitializeRecipe(13, 3, 0, 25, "RatMother", "Spawn rats every 3s",
+        recipes.Add(InitializeRecipe(13, 3, 0, 25, "CatMother", "Spawn rats every 3s",
             (slot) =>
             {
                 slot.isImproved = true;
@@ -83,6 +83,24 @@ public class GameController : MonoBehaviour
                     
                 }, 3));
 
+            }, (slot) =>
+            {
+                StopCoroutine(slot.actionCoroutine);
+            }
+        ));
+        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Trader", "Convert 10 A to 1 B",
+            (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                slot.actionCoroutine = StartCoroutine(Do(() =>
+                {
+                    var rateA = slot.isImproved ? 8 : 10;
+                    var rateB = slot.isImproved ? 4 : 3;
+                    if (currencyA >= rateA) UpdateCurrency(-rateA, rateB);
+
+                }, 3));
             }, (slot) =>
             {
                 StopCoroutine(slot.actionCoroutine);
@@ -125,25 +143,7 @@ public class GameController : MonoBehaviour
                 slot.paramListInt = new List<int>();
             }
         ));
-        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Trader", "Convert 10 A to 1 B",
-            (slot) =>
-            {
-
-            }, (slot) =>
-            {
-                slot.actionCoroutine = StartCoroutine(Do(() =>
-                {
-                    var rateA = slot.isImproved ? 8 : 10;
-                    var rateB = slot.isImproved ? 4 : 3;
-                    if (currencyA >= rateA) UpdateCurrency(-rateA, rateB);
-
-                }, 3));
-            }, (slot) =>
-            {
-                StopCoroutine(slot.actionCoroutine);
-            }
-        ));
-        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Glutton", "Convert 1 demon to 1 B",
+        recipes.Add(InitializeRecipe(6, 3, 0, 10, "Glutton", "Convert 1 demon to 1 B",
             (slot) =>
             {
 
@@ -166,7 +166,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Snake", "Increases life time",
+        recipes.Add(InitializeRecipe(7, 3, 0, 10, "Snake", "Increases life time",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour
                 PayEvent -= SnakePayHandlerMethod;
             }
         ));
-        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Eye", "Gives 1 B when summoned",
+        recipes.Add(InitializeRecipe(8, 3, 0, 10, "Eye", "Gives 1 B when summoned",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -193,6 +193,32 @@ public class GameController : MonoBehaviour
                 {
                     PayEvent += EyeImprovedPayHandlerMethod;
                 } else
+                {
+                    PayEvent += EyePayHandlerMethod;
+                }
+            }, (slot) =>
+            {
+                if (slot.isImproved)
+                {
+                    PayEvent -= EyeImprovedPayHandlerMethod;
+                }
+                else
+                {
+                    PayEvent -= EyePayHandlerMethod;
+                }
+            }
+        ));
+        recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives 1 B when summoned",
+            (slot) =>
+            {
+                slot.increaseLifeTime(slot.lifeTimeMax);
+            }, (slot) =>
+            {
+                if (slot.isImproved)
+                {
+                    PayEvent += EyeImprovedPayHandlerMethod;
+                }
+                else
                 {
                     PayEvent += EyePayHandlerMethod;
                 }

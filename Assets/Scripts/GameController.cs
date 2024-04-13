@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     public GameObject recipePrefab;
     public GameObject slotPrefab;
 
+    public int improveChance = 5;
+
     int currencyA = 0;
     int currencyB = 0;
     int currencyAMax = 20;
@@ -67,25 +69,6 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2, true);
-            }
-        ));
-
-        recipes.Add(InitializeRecipe(13, 3, 0, 25, "CatMother", "Spawn rats every 3s",
-            (slot) =>
-            {
-                slot.isImproved = true;
-            }, (slot) =>
-            {
-                slot.actionCoroutine = StartCoroutine(Do(() =>
-                {
-                    var slot = GetFirstActiveEmptySlot();
-                    if (slot != null) slot.setRecipe(recipes[0], slot.isImproved ? 50 : 0);
-                    
-                }, 3));
-
-            }, (slot) =>
-            {
-                StopCoroutine(slot.actionCoroutine);
             }
         ));
         recipes.Add(InitializeRecipe(3, 3, 0, 10, "Trader", "Convert 10 A to 1 B",
@@ -244,7 +227,7 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyMult(slot.isImproved ? -2 : -1, slot.isImproved ? -2 : -1);
             }
         ));
-        recipes.Add(InitializeRecipe(6, 3, 0, 10, "Octopus", "Gives 1 A for each demons every 2s",
+        recipes.Add(InitializeRecipe(12, 3, 0, 10, "Octopus", "Gives 1 A for each demons every 2s",
             (slot) =>
             {
                 slot.increaseLifeTime(slot.lifeTimeMax);
@@ -258,6 +241,47 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 StopCoroutine(slot.actionCoroutine);
+            }
+        ));
+        recipes.Add(InitializeRecipe(13, 3, 0, 10, "Joker", "Gives 1 A for each demons every 2s",
+            (slot) =>
+            {
+            }, (slot) =>
+            {
+                improveChance *= slot.isImproved ? 10 : 3;
+            }, (slot) =>
+            {
+                improveChance /= slot.isImproved ? 10 : 3;
+            }
+        ));
+        recipes.Add(InitializeRecipe(14, 3, 0, 25, "CatMother", "Spawn cats every 3s",
+            (slot) =>
+            {
+                slot.isImproved = true;
+            }, (slot) =>
+            {
+                slot.actionCoroutine = StartCoroutine(Do(() =>
+                {
+                    var slot = GetFirstActiveEmptySlot();
+                    if (slot != null) slot.setRecipe(recipes[0], slot.isImproved ? 50 : 0);
+
+                }, 3));
+
+            }, (slot) =>
+            {
+                StopCoroutine(slot.actionCoroutine);
+            }
+        ));
+        recipes.Add(InitializeRecipe(15, 3, 0, 25, "Dragon", "You win!",
+            (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                Debug.Log("WIN!");
+            }, (slot) =>
+            {
+
             }
         ));
 

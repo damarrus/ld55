@@ -56,19 +56,20 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyIncr(-2, 0);
             }
         ));
-        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Bird", "Increase max A +30",
+        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A x2",
             (slot) =>
             {
                 slot.lifeTimeLeft *= 2;
             }, (slot) =>
             {
-                UpdateMaxCurrency(30, 0);
+                UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2);
+
             }, (slot) =>
             {
 
             }, (slot) =>
             {
-                UpdateMaxCurrency(-30, 0);
+                UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2, true);
             }
         ));
         recipes.Add(InitializeRecipe(3, 25, 0, 60, "Godzilla", "Increase increment A +2",
@@ -169,10 +170,19 @@ public class GameController : MonoBehaviour
         UpdateCurrencyText();
     }
 
-    void UpdateMaxCurrency(int deltaMaxCurrency1, int deltaMaxCurrency2)
+    void UpdateMaxCurrency(int deltaMaxCurrency1, int deltaMaxCurrency2, bool division = false)
     {
-        currencyAMax += deltaMaxCurrency1;
-        currencyBMax += deltaMaxCurrency2;
+        if (division)
+        {
+            currencyAMax /= deltaMaxCurrency1;
+            currencyBMax /= deltaMaxCurrency2;
+
+        } else
+        {
+            currencyAMax *= deltaMaxCurrency1;
+            currencyBMax *= deltaMaxCurrency2;
+        }
+        
         
         if (currencyA > currencyAMax) currencyA = currencyAMax;
         if (currencyB > currencyBMax) currencyB = currencyBMax;

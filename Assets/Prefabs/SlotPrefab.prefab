@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -439, y: 127.12793}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -426.7821, y: 127.12793}
+  m_SizeDelta: {x: 224.4358, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4543251669645451879
 MonoBehaviour:
@@ -54,6 +54,7 @@ MonoBehaviour:
   recipe: {fileID: 0}
   lifeTimeLeft: 0
   active: 1
+  isImproved: 0
 --- !u!1 &4543251670764804326
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +89,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25.1241, y: 0}
+  m_AnchoredPosition: {x: -37.342003, y: 0}
   m_SizeDelta: {x: 149.7518, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4543251670764804347
@@ -222,8 +223,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 74.876, y: -0.000011444}
-  m_SizeDelta: {x: 50.248, y: 50}
+  m_AnchoredPosition: {x: 74.87596, y: -0.000011444}
+  m_SizeDelta: {x: 74.684, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4385139214218482696
 CanvasRenderer:

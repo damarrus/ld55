@@ -14,6 +14,8 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int currencyA = 0;
     public int currencyB = 0;
     public int lifeTime = 0;
+    public delegate void ImprovedAction(Slot slot);
+    public ImprovedAction improvedAction;
     public delegate void StartAction(Slot slot);
     public StartAction startAction;
     public delegate void DuringAction(Slot slot);

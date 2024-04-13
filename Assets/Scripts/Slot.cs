@@ -11,6 +11,7 @@ public class Slot : MonoBehaviour
     public Coroutine ltCoroutine = null;
     public bool active = true;
     public Coroutine actionCoroutine = null;
+    public bool isImproved = false;
 
 
     void Start()
@@ -51,14 +52,25 @@ public class Slot : MonoBehaviour
 
         if (rec != null )
         {
+            
+
+
+
             nameTextComponent.text = rec.nameText;
             lifeTimeLeft = rec.lifeTime;
+            if (Random.Range(0, 100) < 50)
+            {
+                isImproved = true;
+                rec.improvedAction(this);
+                nameTextComponent.color = Color.green;
+            }
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             ltCoroutine = StartCoroutine(lifeTimeCoroutine());
             rec.startAction(this);
         } else
         {
             nameTextComponent.text = "Empty";
+            nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
             if (!active)
             {
@@ -67,6 +79,7 @@ public class Slot : MonoBehaviour
 
             StopCoroutine(ltCoroutine);
             recipe.endAction(this);
+            isImproved = false;
         }
 
         recipe = rec;

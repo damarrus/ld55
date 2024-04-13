@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
     int currencyBIncr = 0;
     int currencyAMult = 1;
     int currencyBMult = 1;
+    int currencyADelta = 0;
+    int currencyBDelta = 0;
 
     List<Recipe> recipes = new List<Recipe>();
     List<Slot> slots = new List<Slot>();
@@ -39,20 +41,26 @@ public class GameController : MonoBehaviour
 
         StartCoroutine(MainCoroutine());
 
-        recipes.Add(InitializeRecipe(1, 3, 0, 5, "Bird", "Increase increment A +2",
+        recipes.Add(InitializeRecipe(1, 3, 0, 5, "Rat", "Increase increment A +2",
             (slot) =>
             {
-                currencyAIncr += 2;
+                slot.lifeTimeLeft *= 2;
+            }, (slot) =>
+            {
+                UpdateCurrencyIncr(2, 0);
             }, (slot) =>
             {
 
             }, (slot) => 
             {
-                currencyAIncr -= 2;
+                UpdateCurrencyIncr(-2, 0);
             }
         ));
-        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Rat", "Increase max A +30",
+        recipes.Add(InitializeRecipe(2, 5, 0, 30, "Bird", "Increase max A +30",
             (slot) =>
+            {
+                slot.lifeTimeLeft *= 2;
+            }, (slot) =>
             {
                 UpdateMaxCurrency(30, 0);
             }, (slot) =>
@@ -66,6 +74,9 @@ public class GameController : MonoBehaviour
         recipes.Add(InitializeRecipe(3, 25, 0, 60, "Godzilla", "Increase increment A +2",
             (slot) =>
             {
+                slot.lifeTimeLeft *= 2;
+            }, (slot) =>
+            {
                 currencyAIncr += 5;
             }, (slot) =>
             {
@@ -73,6 +84,27 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 currencyAIncr -= 5;
+            }
+        ));
+        recipes.Add(InitializeRecipe(4, 3, 0, 25, "RatMother", "Spawn rats every 5s",
+            (slot) =>
+            {
+                slot.lifeTimeLeft *= 2;
+            }, (slot) =>
+            {
+                StartCoroutine(Do(() =>
+                {
+                    var slot = GetFirstActiveEmptySlot();
+                    if (slot != null) slot.setRecipe(recipes[0]);
+                    
+                }, 3));
+
+            }, (slot) =>
+            {
+
+            }, (slot) =>
+            {
+                UpdateCurrencyIncr(-2, 0);
             }
         ));
 
@@ -129,6 +161,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void UpdateCurrencyIncr(int deltaIncrCurrencyA, int deltaIncrCurrencyB)
+    {
+        currencyAIncr += deltaIncrCurrencyA;
+        currencyBIncr += deltaIncrCurrencyB;
+
+        UpdateCurrencyText();
+    }
+
     void UpdateMaxCurrency(int deltaMaxCurrency1, int deltaMaxCurrency2)
     {
         currencyAMax += deltaMaxCurrency1;
@@ -147,13 +187,18 @@ public class GameController : MonoBehaviour
 
     void UpdateCurrencyText()
     {
-        Currency1Component.text = currencyA.ToString() + "/" + currencyAMax.ToString();
-        Currency2Component.text = currencyB.ToString() + "/" + currencyBMax.ToString();
+        currencyADelta = currencyAIncr * currencyAMult;
+        currencyBDelta = currencyBIncr * currencyBMult;
+
+        if (currencyADelta == 0 && !HasFilledSlot() && currencyA < 3) currencyADelta = 1;
+
+        Currency1Component.text = currencyA.ToString() + "/" + currencyAMax.ToString() + " (+" + currencyADelta + ")";
+        Currency2Component.text = currencyB.ToString() + "/" + currencyBMax.ToString() + " (+" + currencyBDelta + ")";
     }
 
     Recipe InitializeRecipe(
         int id, int currency1, int currency2, int lifeTime, string nameText, string descriptionText,
-        Recipe.StartAction startAction, Recipe.DuringAction duringAction, Recipe.EndAction endAction)
+        Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.DuringAction duringAction, Recipe.EndAction endAction)
     {
         GameObject newItem = Instantiate(recipePrefab, recipesContainer.transform);
 
@@ -165,6 +210,7 @@ public class GameController : MonoBehaviour
         recipe.currencyA = currency1;
         recipe.currencyB = currency2;
         recipe.lifeTime = lifeTime;
+        recipe.improvedAction = improvedAction;
         recipe.startAction = startAction;
         recipe.duringAction = duringAction;
         recipe.endAction = endAction;
@@ -186,13 +232,7 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            var currencyADelta = currencyAIncr * currencyAMult;
-            var currencyBDelta = currencyBIncr * currencyBMult;
-
-            if (currencyADelta == 0 && !HasFilledSlot() && currencyA < 3) currencyADelta = 1;
-
             UpdateCurrency(currencyADelta, currencyBDelta);
-
             yield return new WaitForSeconds(1f);
         }
     }
@@ -222,4 +262,14 @@ public class GameController : MonoBehaviour
 
         return false;
     }
+
+    public static IEnumerator Do(Action action, int time)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            action();
+        }
+    }
+
 }

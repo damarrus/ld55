@@ -208,32 +208,19 @@ public class GameController : MonoBehaviour
                 }
             }
         ));
-        recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives 1 B when summoned",
+        recipes.Add(InitializeRecipe(9, 3, 0, 10, "Ptero", "Gives x2 A",
             (slot) =>
             {
-                slot.increaseLifeTime(slot.lifeTimeMax);
+
             }, (slot) =>
             {
-                if (slot.isImproved)
-                {
-                    PayEvent += EyeImprovedPayHandlerMethod;
-                }
-                else
-                {
-                    PayEvent += EyePayHandlerMethod;
-                }
+                UpdateCurrency(currencyA * (slot.isImproved ? 3 : 2), 0);
             }, (slot) =>
             {
-                if (slot.isImproved)
-                {
-                    PayEvent -= EyeImprovedPayHandlerMethod;
-                }
-                else
-                {
-                    PayEvent -= EyePayHandlerMethod;
-                }
+
             }
         ));
+
 
 
         for (int i = 0; i < recipes.Count; i++)

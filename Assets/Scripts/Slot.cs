@@ -9,6 +9,7 @@ public class Slot : MonoBehaviour
     public int id = 0;
     public Recipe recipe = null;
     public int lifeTimeLeft = 0;
+    public int lifeTimeMax = 0;
     public Coroutine ltCoroutine = null;
     public bool active = true;
     public Coroutine actionCoroutine = null;
@@ -64,7 +65,7 @@ public class Slot : MonoBehaviour
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
-            lifeTimeLeft = rec.lifeTime;
+            increaseLifeTime(rec.lifeTime);
             if (Random.Range(0, 100) < improvedChance)
             {
                 isImproved = true;
@@ -90,16 +91,26 @@ public class Slot : MonoBehaviour
                 setActive(false);
             }
         }
+    }
 
-        
+    public void increaseLifeTime(int lifeTimeDelta)
+    {
+        lifeTimeLeft += lifeTimeDelta;
+        lifeTimeMax += lifeTimeDelta;
+        updateLifeTimeLeft();
+    }
+    
+    public void updateLifeTimeLeft()
+    {
+        var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
+        lifeTimeTextComponent.text = lifeTimeLeft.ToString();
     }
 
     IEnumerator lifeTimeCoroutine()
     {
         while (lifeTimeLeft > 0)
         {
-            var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
-            lifeTimeTextComponent.text = lifeTimeLeft.ToString();
+            updateLifeTimeLeft();
             yield return new WaitForSeconds(1f);
 
             --lifeTimeLeft;

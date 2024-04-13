@@ -34,6 +34,9 @@ public class GameController : MonoBehaviour
     int maxSlotCount = 12;
     int curSlotCount = 0;
 
+    public delegate void PayEventHandler(Slot slot);
+    public static event PayEventHandler PayEvent;
+
     void Start()
     {
         Currency1Component.text = currencyA.ToString();
@@ -44,7 +47,7 @@ public class GameController : MonoBehaviour
         recipes.Add(InitializeRecipe(1, 3, 0, 5, "Rat", "Increase increment A +2",
             (slot) =>
             {
-                slot.lifeTimeLeft *= 2;
+                slot.increaseLifeTime(slot.lifeTimeMax);
             }, (slot) =>
             {
                 UpdateCurrencyIncr(5, 0);
@@ -56,7 +59,7 @@ public class GameController : MonoBehaviour
         recipes.Add(InitializeRecipe(2, 5, 0, 30, "Demon", "Increase max A/B x2",
             (slot) =>
             {
-                slot.lifeTimeLeft *= 2;
+                slot.increaseLifeTime(slot.lifeTimeMax);
             }, (slot) =>
             {
                 UpdateMaxCurrency(slot.isImproved ? 3 : 2, slot.isImproved ? 3 : 2);
@@ -156,10 +159,29 @@ public class GameController : MonoBehaviour
                         filteredSlots[randomIndex].setRecipe(null);
                         UpdateCurrency(0, slot.isImproved ? 3 : 1);
                     }
+                    
                 }, 3));
             }, (slot) =>
             {
                 StopCoroutine(slot.actionCoroutine);
+            }
+        ));
+
+        recipes.Add(InitializeRecipe(3, 3, 0, 10, "Snake", "Increases life time",
+            (slot) =>
+            {
+                slot.increaseLifeTime(slot.lifeTimeMax);
+            }, (slot) =>
+            {
+                var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+                foreach (var filteredSlot in filteredSlots)
+                {
+                    filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
+                }
+                PayEvent += SnakePayHandlerMethod;
+            }, (slot) =>
+            {
+                PayEvent -= SnakePayHandlerMethod;
             }
         ));
 
@@ -184,6 +206,11 @@ public class GameController : MonoBehaviour
 
     }
 
+    public static void SnakePayHandlerMethod(Slot slot)
+    {
+        slot.increaseLifeTime(slot.lifeTimeMax);
+    }
+
     void Update()
     {
         
@@ -196,6 +223,7 @@ public class GameController : MonoBehaviour
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
             slot.setRecipe(recipe);
+
         }
     }
 

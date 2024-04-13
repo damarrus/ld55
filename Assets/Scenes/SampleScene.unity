@@ -2024,6 +2024,7 @@ MonoBehaviour:
   slotsContainer: {fileID: 1254269806}
   recipePrefab: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
   slotPrefab: {fileID: 4543251669645451873, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
+  improveChance: 5
 --- !u!4 &2096156349
 Transform:
   m_ObjectHideFlags: 0

@@ -8,8 +8,10 @@ public class Slot : MonoBehaviour
     public GameController gameController;
     public Recipe recipe = null;
     public int lifeTimeLeft = 0;
-    public Coroutine coroutine = null;
+    public Coroutine ltCoroutine = null;
     public bool active = true;
+    public Coroutine actionCoroutine = null;
+
 
     void Start()
     {
@@ -43,18 +45,17 @@ public class Slot : MonoBehaviour
 
     public void setRecipe(Recipe rec)
     {
-        recipe = rec;
-
         var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
         var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
 
 
-        if (recipe != null )
+        if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
             lifeTimeLeft = rec.lifeTime;
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
-            coroutine = StartCoroutine(lifeTimeCoroutine());
+            ltCoroutine = StartCoroutine(lifeTimeCoroutine());
+            rec.startAction(this);
         } else
         {
             nameTextComponent.text = "Empty";
@@ -64,8 +65,11 @@ public class Slot : MonoBehaviour
                 setActive(false);
             }
 
-            StopCoroutine(coroutine);
+            StopCoroutine(ltCoroutine);
+            recipe.endAction(this);
         }
+
+        recipe = rec;
     }
 
     IEnumerator lifeTimeCoroutine()
@@ -75,7 +79,7 @@ public class Slot : MonoBehaviour
             var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             yield return new WaitForSeconds(1f);
-            
+            recipe.duringAction(this);
 
             --lifeTimeLeft;
         }

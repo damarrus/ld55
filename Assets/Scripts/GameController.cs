@@ -716,4 +716,9 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void togglePause()
+    {
+        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+    }
+
 }

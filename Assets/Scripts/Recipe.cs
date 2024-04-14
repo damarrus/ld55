@@ -121,7 +121,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
-        Time.timeScale = 0f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -130,7 +129,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
-        Time.timeScale = 1f;
     }
 
     public void InitTooltip()

@@ -21,23 +21,14 @@ public class Slot : MonoBehaviour
 
     public List<GameObject> prefabList;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void createFlyOut(int number, bool isA)
     {
         var flyOutObject = Instantiate(flyOutPrefab, transform);
         flyOutObject.transform.position = transform.position;
+        flyOutObject.transform.localPosition = Vector3.zero;
+
         var tmpText = flyOutObject.GetComponentInChildren<TMP_Text>();
-        tmpText.text = number.ToString();
+        tmpText.text = (number > 0 ? "+" : "") + number.ToString();
         tmpText.color = isA ? Color.green : Color.blue;
         StartCoroutine(flyOutCoroutine(flyOutObject));
     }
@@ -153,5 +144,17 @@ public class Slot : MonoBehaviour
             --lifeTimeLeft;
         }
         setRecipe(null);
+    }
+
+    public void EyePayHandlerMethod(Slot slot)
+    {
+        gameController.UpdateCurrency(0, gameController.eyeSummonedAddB);
+        createFlyOut(gameController.eyeSummonedAddB, false);
+    }
+
+    public void EyeImprovedPayHandlerMethod(Slot slot)
+    {
+        gameController.UpdateCurrency(0, gameController.eyeImprovedSummonedAddB);
+        createFlyOut(gameController.eyeImprovedSummonedAddB, false);
     }
 }

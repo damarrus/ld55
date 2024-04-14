@@ -92,6 +92,7 @@ public class Slot : MonoBehaviour
                 setActive(false);
             }
             lifeTimeLeft = 0;
+            lifeTimeMax = 0;
         }
     }
 

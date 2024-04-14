@@ -295,7 +295,7 @@ public class GameController : MonoBehaviour
                     var rateB = slot.isImproved ? traderImprovedRateB : traderRateB;
                     if (currencyA >= rateA)
                     {
-                        var (realDeltaA, realDeltaB) = UpdateCurrency(-rateA, rateB);
+                        var (realDeltaA, realDeltaB) = UpdateCurrency(-rateA, rateB, false);
                         // TODO ������� ��������
                         //slot.createFlyOut(-realDeltaA, true);
                         slot.createFlyOut(realDeltaB, false);

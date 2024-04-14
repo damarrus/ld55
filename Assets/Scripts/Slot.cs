@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameController gameController;
     public GameObject flyOutPrefab;
@@ -20,6 +21,14 @@ public class Slot : MonoBehaviour
     public List<int> paramListInt = new List<int>();
 
     public List<GameObject> prefabList;
+
+    private void Start()
+    {
+        foreach (var item in GetComponentsInChildren<Canvas>())
+        {
+            item.worldCamera = Camera.main;
+        }
+    }
 
     public void createFlyOut(int number, bool isA)
     {
@@ -125,6 +134,8 @@ public class Slot : MonoBehaviour
             {
                 prefabList[i].SetActive(false);
             }
+            var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
+            tooltipObject.SetActive(false);
         }
     }
 
@@ -173,5 +184,19 @@ public class Slot : MonoBehaviour
             setRecipe(null);
         }
         
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (recipe == null) return;
+        
+        var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
+        tooltipObject.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
+        tooltipObject.SetActive(false);
     }
 }

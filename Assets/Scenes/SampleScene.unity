@@ -314,7 +314,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 148328634}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 669670741}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: togglePause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &148328634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1506,6 +1518,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8650559488740748757, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
   m_PrefabInstance: {fileID: 1901989547}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &669670741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
+  m_PrefabInstance: {fileID: 1868590457964232932}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a33e51881f382e4ab9b2b7de681ebfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &709593449
 PrefabInstance:
   m_ObjectHideFlags: 0

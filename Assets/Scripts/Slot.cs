@@ -57,18 +57,18 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         var canvas = transform.Find("Canvas");
         var nameTextComponent = canvas.Find("RecipeName").GetComponent<TMP_Text>();
         var lifeTimeTextComponent = canvas.Find("LifeTime").GetComponent<TMP_Text>();
-        var pentagramTextComponent = canvas.Find("Pentagram").GetComponent<TMP_Text>();
+        var pentagramObject = transform.Find("PentagramImage").gameObject;
 
         if (!active)
         {
-            pentagramTextComponent.text = "";
+            pentagramObject.SetActive(false);
         }
 
         if (!active && recipe == null)
         {
             nameTextComponent.text = "Blocked";
             nameTextComponent.color = Color.red;
-            lifeTimeTextComponent.text = "";
+            pentagramObject.SetActive(false);
         }
 
         if (active)
@@ -76,7 +76,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             nameTextComponent.text = "Empty";
             nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
-            pentagramTextComponent.text = "*";
+            pentagramObject.SetActive(true);
         }
     }
 
@@ -89,7 +89,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
+            Debug.Log(improvedChance);
             improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
+            
             
             if (Random.Range(0, 100) < improvedChance)
             {

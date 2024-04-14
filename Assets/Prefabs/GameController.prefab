@@ -52,6 +52,7 @@ MonoBehaviour:
   improveChance: 5
   currencyA: 0
   currencyB: 0
+  globalLifetimeMultiplier: 1
   currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
@@ -59,6 +60,7 @@ MonoBehaviour:
   catId: 1
   catName: Cat
   catDescription: Increase increment A +2
+  catImprovedDescription: Increase increment A +2
   catPriceA: 3
   catPriceB: 0
   catLifeTime: 12
@@ -69,6 +71,7 @@ MonoBehaviour:
   greedId: 2
   greedName: Greed
   greedDescription: Increase max A/B x2
+  greedImprovedDescription: Increase max A/B x2
   greedPriceA: 10
   greedPriceB: 10
   greedLifeTime: 300
@@ -78,6 +81,7 @@ MonoBehaviour:
   traderId: 3
   traderName: Trader
   traderDescription: Convert 5 A to 2 B
+  traderImprovedDescription: Convert 10 A to 1 B
   traderPriceA: 8
   traderPriceB: 0
   traderLifeTime: 20
@@ -90,15 +94,17 @@ MonoBehaviour:
   mushroomId: 4
   mushroomName: Mushroom
   mushroomDescription: After death gives 20 A
+  mushroomImprovedDescription: After death gives 10 A
   mushroomPriceA: 0
   mushroomPriceB: 1
-  mushroomLifeTime: 50
+  mushroomLifeTime: 30
   mushroomImprovedLifeTime: 16
-  mushroomEndAddA: 20
+  mushroomEndAddA: 15
   mushroomImprovedEndAddA: 50
   druidId: 5
   druidName: Druid
   druidDescription: Gives +3 pentagram
+  druidImprovedDescription: Gives 3 slots
   druidPriceA: 10
   druidPriceB: 1
   druidLifeTime: 200
@@ -108,6 +114,7 @@ MonoBehaviour:
   gluttonId: 6
   gluttonName: Glutton
   gluttonDescription: Convert 1 demon to 2 B
+  gluttonImprovedDescription: Convert 1 demon to 1 B
   gluttonPriceA: 0
   gluttonPriceB: 10
   gluttonLifeTime: 60
@@ -118,14 +125,17 @@ MonoBehaviour:
   snakeId: 7
   snakeName: Snake
   snakeDescription: Increases life time
+  snakeImprovedDescription: Increases life time
   snakePriceA: 0
   snakePriceB: 5
   snakeLifeTime: 60
   snakeImprovedLifeTime: 300
   snakeMultLifetime: 2
+  snakeImprovedMultLifetime: 3
   eyeId: 8
   eyeName: Eye
   eyeDescription: Gives 5B when summoned
+  eyeImprovedDescription: Gives 1 B when summoned
   eyePriceA: 0
   eyePriceB: 20
   eyeLifeTime: 120
@@ -135,6 +145,7 @@ MonoBehaviour:
   pteroId: 9
   pteroName: Ptero
   pteroDescription: Gives x2 A
+  pteroImprovedDescription: Gives x2 A
   pteroPriceA: 0
   pteroPriceB: 3
   pteroLifeTime: 2
@@ -144,6 +155,7 @@ MonoBehaviour:
   spiderId: 10
   spiderName: Spider
   spiderDescription: Gives B
+  spiderImprovedDescription: Increase increment B +1
   spiderPriceA: 0
   spiderPriceB: 5
   spiderLifeTime: 25
@@ -154,6 +166,7 @@ MonoBehaviour:
   fireId: 11
   fireName: Fire
   fireDescription: Increase increment A/B x2
+  fireImprovedDescription: Increase increment A/B x2
   firePriceA: 15
   firePriceB: 15
   fireLifeTime: 100
@@ -163,6 +176,7 @@ MonoBehaviour:
   octopusId: 12
   octopusName: Octopus
   octopusDescription: Gives 2 A for each demons every 4s
+  octopusImprovedDescription: Gives 1 A for each demons every 2s
   octopusPriceA: 100
   octopusPriceB: 0
   octopusLifeTime: 80
@@ -172,6 +186,7 @@ MonoBehaviour:
   jokerId: 13
   jokerName: Joker
   jokerDescription: Increase chance for improved summon
+  jokerImprovedDescription: Increase chance for improved summon
   jokerPriceA: 50
   jokerPriceB: 0
   jokerLifeTime: 150
@@ -181,6 +196,7 @@ MonoBehaviour:
   motherCatId: 14
   motherCatName: MotherCat
   motherCatDescription: Spawn cats every 5s
+  motherCatImrpovedDescription: Spawn cats every 5s
   motherCatPriceA: 30
   motherCatPriceB: 0
   motherCatLifeTime: 300
@@ -190,6 +206,7 @@ MonoBehaviour:
   dragonId: 15
   dragonName: Dragon
   dragonDescription: You win
+  dragonImprovedDescription: You win
   dragonPriceA: 200
   dragonPriceB: 50
   dragonLifeTime: 0

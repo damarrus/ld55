@@ -745,9 +745,15 @@ public class GameController : MonoBehaviour
         Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
     }
 
-    public string makeTimeString(int seconds)
+    public string makeTimeString(int t)
     {
-        return ((int)(seconds / 60)).ToString() + ":" + (seconds % 60).ToString();
+        string minutes = ((int)(t / 60)).ToString();
+        string seconds = (t % 60).ToString();
+        if(seconds.Length == 1)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
     }
 
 }

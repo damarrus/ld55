@@ -165,4 +165,13 @@ public class Slot : MonoBehaviour
         var (realDeltaA, realDeltaB) = gameController.UpdateCurrency(0, gameController.eyeImprovedSummonedAddB);
         createFlyOut(realDeltaB, false);
     }
+
+    public void Die()
+    {
+        if (recipe != null && recipe.id != 4)
+        {
+            setRecipe(null);
+        }
+        
+    }
 }

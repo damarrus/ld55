@@ -629,7 +629,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 426997466}
-  - component: {fileID: 426997472}
   - component: {fileID: 426997471}
   - component: {fileID: 426997470}
   - component: {fileID: 426997469}
@@ -784,7 +783,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 426997472}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Recipe, Assembly-CSharp
         m_MethodName: Pay
         m_Mode: 1
@@ -796,30 +795,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &426997472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426997465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1846382be2c28d44d9dab35b0ca87ef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  id: 0
-  nameText: 
-  descriptionText: 
-  currencyA: 0
-  currencyB: 0
-  lifeTime: 0
-  improvedLifeTime: 0
-  iconsList: []
-  iconsUnknownList: []
-  revealed: 0
-  available: 0
 --- !u!1001 &442151268
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4210,7 +4185,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5806692045606430762}
-  - component: {fileID: 8295148402940636339}
   - component: {fileID: 6196548129289566530}
   - component: {fileID: 9115606554967666295}
   - component: {fileID: 5213200271960577221}
@@ -4422,7 +4396,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8295148402940636339}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Recipe, Assembly-CSharp
         m_MethodName: Pay
         m_Mode: 1
@@ -4434,30 +4408,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8295148402940636339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2657070332363561090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1846382be2c28d44d9dab35b0ca87ef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
-  id: 0
-  nameText: 
-  descriptionText: 
-  currencyA: 0
-  currencyB: 0
-  lifeTime: 0
-  improvedLifeTime: 0
-  iconsList: []
-  iconsUnknownList: []
-  revealed: 0
-  available: 0
 --- !u!114 &9096959001656803083
 MonoBehaviour:
   m_ObjectHideFlags: 0

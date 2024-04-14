@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -524,6 +525,7 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 Debug.Log("WIN!");
+                SceneManager.LoadScene("WinScene");
             }, (slot) =>
             {
 

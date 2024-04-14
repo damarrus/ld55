@@ -539,7 +539,7 @@ public class GameController : MonoBehaviour
     public void PayRecipe(Recipe recipe)
     {
         var slot = GetFirstActiveEmptySlot();
-        if (slot != null && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
+        if (slot != null && recipe.revealed && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
 

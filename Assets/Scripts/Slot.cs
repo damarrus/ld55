@@ -93,6 +93,7 @@ public class Slot : MonoBehaviour
             for (int i = 0; i < prefabList.Count; i++)
             {
                 prefabList[i].SetActive(i == rec.id - 1);
+                prefabList[i].transform.Find("upgrade").gameObject.SetActive(isImproved);
             }
 
             rec.startAction(this);

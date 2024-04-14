@@ -148,13 +148,13 @@ public class Slot : MonoBehaviour
 
     public void EyePayHandlerMethod(Slot slot)
     {
-        gameController.UpdateCurrency(0, gameController.eyeSummonedAddB);
-        createFlyOut(gameController.eyeSummonedAddB, false);
+        var (realDeltaA, realDeltaB) = gameController.UpdateCurrency(0, gameController.eyeSummonedAddB);
+        createFlyOut(realDeltaB, false);
     }
 
     public void EyeImprovedPayHandlerMethod(Slot slot)
     {
-        gameController.UpdateCurrency(0, gameController.eyeImprovedSummonedAddB);
-        createFlyOut(gameController.eyeImprovedSummonedAddB, false);
+        var (realDeltaA, realDeltaB) = gameController.UpdateCurrency(0, gameController.eyeImprovedSummonedAddB);
+        createFlyOut(realDeltaB, false);
     }
 }

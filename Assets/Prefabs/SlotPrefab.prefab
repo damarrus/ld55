@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
+  flyOutPrefab: {fileID: 54023219744440766, guid: d067f30bfe3ddaf408531a60976cbfaf, type: 3}
   id: 0
   recipe: {fileID: 0}
   lifeTimeLeft: 0

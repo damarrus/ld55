@@ -406,21 +406,21 @@ public class GameController : MonoBehaviour
             {
                 if (slot.isImproved)
                 {
-                    PayStartEvent += EyeImprovedPayHandlerMethod;
+                    PayStartEvent += slot.EyeImprovedPayHandlerMethod;
                 } 
                 else
                 {
-                    PayStartEvent += EyePayHandlerMethod;
+                    PayStartEvent += slot.EyePayHandlerMethod;
                 }
             }, (slot) =>
             {
                 if (slot.isImproved)
                 {
-                    PayStartEvent -= EyeImprovedPayHandlerMethod;
+                    PayStartEvent -= slot.EyeImprovedPayHandlerMethod;
                 }
                 else
                 {
-                    PayStartEvent -= EyePayHandlerMethod;
+                    PayStartEvent -= slot.EyePayHandlerMethod;
                 }
             }
         ));
@@ -543,15 +543,7 @@ public class GameController : MonoBehaviour
         slot.increaseLifeTime(slot.lifeTimeMax);
     }
 
-    public void EyePayHandlerMethod(Slot slot)
-    {
-        UpdateCurrency(0, eyeSummonedAddB);
-    }
-
-    public void EyeImprovedPayHandlerMethod(Slot slot)
-    {
-        UpdateCurrency(0, eyeImprovedSummonedAddB);
-    }
+    
 
     public void PayRecipe(Recipe recipe)
     {
@@ -572,8 +564,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB)
+    public void UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB) // , out int realDeltaCurrencyA, out int realDeltaCurrencyB
     {
+        //realDeltaCurrencyA = 0;
+        //realDeltaCurrencyB = 0;
         currencyA += deltaCurrencyA;
         if (currencyA > currencyABaseMax) currencyA = currencyABaseMax;
 

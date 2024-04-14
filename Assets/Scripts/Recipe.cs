@@ -134,9 +134,11 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void InitTooltip()
     {
+        var realLifeTimeMult = id == 7 ? gameController.snakeMultLifetime : 1;
+
         tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = nameText;
-        tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = descriptionText + "\n\r" + "Lifetime: " + lifeTime.ToString();
+        tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = descriptionText + "\n\r" + "Lifetime: " + (lifeTime * realLifeTimeMult).ToString();
     }
 
 }

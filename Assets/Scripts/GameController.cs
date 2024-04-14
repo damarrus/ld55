@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
 
     
     int maxSlotCount = 12;
+    public int globalLifetimeMultiplier = 1;
 
     Dictionary<int, int> RecipesOrder { get; set; }
     Dictionary<int, List<int>> RecipesReveal { get; set; }
@@ -128,6 +129,7 @@ public class GameController : MonoBehaviour
     public int snakeLifeTime = 60;
     public int snakeImprovedLifeTime = 120;
     public int snakeMultLifetime = 2;
+    public int snakeImprovedMultLifetime = 3;
     [Space]
     public int eyeId = 8;
     public string eyeName = "Eye";
@@ -262,7 +264,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         improveChance = baseImproveChance;
-
         InitConfig();
 
         Currency1Component.text = currencyA.ToString();
@@ -394,15 +395,18 @@ public class GameController : MonoBehaviour
             {
             }, (slot) =>
             {
-                var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+                globalLifetimeMultiplier *= slot.isImproved ? snakeImprovedMultLifetime : snakeMultLifetime;
+                var filteredSlots = slots.FindAll(s => s.recipe != null);
+
                 foreach (var filteredSlot in filteredSlots)
                 {
-                    filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
+                    filteredSlot.increaseLifeTime(globalLifetimeMultiplier);
                 }
-                PayEndEvent += SnakePayHandlerMethod;
+                PayEndEvent += slot.SnakePayHandlerMethod;
             }, (slot) =>
             {
-                PayEndEvent -= SnakePayHandlerMethod;
+                globalLifetimeMultiplier /= slot.isImproved ? snakeImprovedMultLifetime : snakeMultLifetime;
+                PayEndEvent -= slot.SnakePayHandlerMethod;
             }
         ));
         recipes.Add(InitializeRecipe(eyeId, eyePriceA, eyePriceB, eyeLifeTime, eyeImprovedLifeTime, eyeName, eyeDescription, eyeImprovedDescription,
@@ -544,13 +548,6 @@ public class GameController : MonoBehaviour
         }
 
     }
-
-    public void SnakePayHandlerMethod(Slot slot)
-    {
-        slot.increaseLifeTime(slot.lifeTimeMax);
-    }
-
-    
 
     public void PayRecipe(Recipe recipe)
     {
@@ -744,6 +741,17 @@ public class GameController : MonoBehaviour
     public void togglePause()
     {
         Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+    }
+
+    public string makeTimeString(int t)
+    {
+        string minutes = ((int)(t / 60)).ToString();
+        string seconds = (t % 60).ToString();
+        if(seconds.Length == 1)
+        {
+            seconds = "0" + seconds;
+        }
+        return minutes + ":" + seconds;
     }
 
 }

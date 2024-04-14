@@ -6,6 +6,8 @@ using UnityEngine;
 public class Slot : MonoBehaviour
 {
     public GameController gameController;
+    public GameObject flyOutPrefab;
+
     public int id = 0;
     public Recipe recipe = null;
     public int lifeTimeLeft = 0;
@@ -28,6 +30,22 @@ public class Slot : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void createFlyOut(int number, bool isA)
+    {
+        var flyOutObject = Instantiate(flyOutPrefab, transform);
+        flyOutObject.transform.position = transform.position;
+        var tmpText = flyOutObject.GetComponentInChildren<TMP_Text>();
+        tmpText.text = number.ToString();
+        tmpText.color = isA ? Color.green : Color.blue;
+        StartCoroutine(flyOutCoroutine(flyOutObject));
+    }
+
+    IEnumerator flyOutCoroutine(GameObject obj)
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(obj);
     }
 
     public void setActive(bool act)

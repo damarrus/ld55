@@ -18,8 +18,8 @@ public class GameController : MonoBehaviour
 
     public int improveChance = 0;
 
-    int currencyA = 0;
-    int currencyB = 0;
+    public int currencyA = 0;
+    public int currencyB = 0;
 
     int currencyAMult = 1;
     int currencyBMult = 1;
@@ -233,6 +233,14 @@ public class GameController : MonoBehaviour
             { 14, new List<int>() {  } },
             { 15, new List<int>() {  } },
         };
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            UpdateCurrency(9999, 9999);
+        }
     }
 
     void Start()
@@ -555,7 +563,7 @@ public class GameController : MonoBehaviour
             RecipesReveal.TryGetValue(recipe.id, out var revealedRecipes);
             foreach (var revealedRecipeId in revealedRecipes)
             {
-                recipes.Find(r => r.id == revealedRecipeId).SetRevealed();
+                recipes.Find(r => r.id == revealedRecipeId).SetRevealed(true);
             }
         }
     }
@@ -642,13 +650,13 @@ public class GameController : MonoBehaviour
         recipe.InitTooltip();
         if (RecipesRevealedOnStart.Contains(id))
         {
-            recipe.SetRevealed();
+            recipe.SetRevealed(true);
         } else
         {
-            recipePrefabObject.SetActive(false);
+            recipe.SetRevealed(false);
         }
 
-        recipe.UpdateText();
+        recipe.CheckAndSetAvailable(currencyA, currencyB);
 
         return recipe;
     }

@@ -23,6 +23,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public List<GameObject> prefabList;
     public GameObject tooltipObject;
 
+    public int localLifetimeMultiplier = 1;
+
     private void Start()
     {
         foreach (var item in GetComponentsInChildren<Canvas>())
@@ -95,7 +97,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 rec.improvedAction(this);
                 nameTextComponent.color = Color.green;
             }
-            increaseLifeTime(isImproved ? rec.improvedLifeTime : rec.lifeTime);
+
+            lifeTimeLeft = isImproved ? rec.improvedLifeTime : rec.lifeTime;
+            lifeTimeMax = isImproved ? rec.improvedLifeTime : rec.lifeTime;
+            updateLifeTimeLeft();
+
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             ltCoroutine = StartCoroutine(lifeTimeCoroutine());
             recipe = rec;
@@ -131,6 +137,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
             lifeTimeLeft = 0;
             lifeTimeMax = 0;
+            localLifetimeMultiplier = 1;
 
             for (int i = 0; i < prefabList.Count; i++)
             {
@@ -141,10 +148,17 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public void increaseLifeTime(int lifeTimeDelta)
+    public void increaseLifeTime(int newSnakeLifetimeMultiplier)
     {
-        lifeTimeLeft += lifeTimeDelta;
-        lifeTimeMax += lifeTimeDelta;
+        var lifeTimeMult = newSnakeLifetimeMultiplier - localLifetimeMultiplier;
+        if (lifeTimeMult > 0)
+        {
+            var lifeTimeDelta = (isImproved ? recipe.improvedLifeTime : recipe.lifeTime) * lifeTimeMult;
+            lifeTimeLeft += lifeTimeDelta;
+            lifeTimeMax += lifeTimeDelta;
+            localLifetimeMultiplier = newSnakeLifetimeMultiplier;
+        }
+
         updateLifeTimeLeft();
     }
     
@@ -179,6 +193,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         createFlyOut(realDeltaB, false);
     }
 
+    public void SnakePayHandlerMethod(Slot slot)
+    {
+        slot.increaseLifeTime(gameController.globalLifetimeMultiplier);
+    }
+
     public void Die()
     {
         if (recipe != null && recipe.id != 4)
@@ -207,8 +226,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = recipe.nameText;
         if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.green;
 
+        var realLifeTimeMult = recipe.id == 7
+            ? isImproved ? gameController.snakeImprovedMultLifetime : gameController.snakeMultLifetime
+            : 1;
+
         tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = isImproved
-            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + recipe.improvedLifeTime.ToString()
-            : recipe.descriptionText + "\n\r" + "Lifetime: " + recipe.lifeTime.ToString();
+            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + (recipe.improvedLifeTime * realLifeTimeMult).ToString()
+            : recipe.descriptionText + "\n\r" + "Lifetime: " + (recipe.lifeTime * realLifeTimeMult).ToString();
     }
 }

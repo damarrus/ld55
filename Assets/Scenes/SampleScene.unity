@@ -4313,6 +4313,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
+      propertyPath: snakeLifeTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
       propertyPath: slotsContainer
       value: 
       objectReference: {fileID: 1254269806}
@@ -4328,6 +4332,10 @@ PrefabInstance:
       propertyPath: Currency2Component
       value: 
       objectReference: {fileID: 1030940766}
+    - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
+      propertyPath: snakeImprovedLifeTime
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1868590459636698713, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -23,6 +23,13 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public EndAction endAction;
     GameObject tooltipObject = null;
 
+    public List<GameObject> iconsList;
+    public List<GameObject> iconsUnknownList;
+
+    public GameObject coinPrefab;
+    public GameObject gemPrefab;
+    public GameObject coinGemPrefab;
+
     public bool revealed = false;
     public bool available = false;
 
@@ -47,13 +54,22 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
     }
 
-    public void SetRevealed()
+    public void SetRevealed(bool rev)
     {
-        if (!revealed)
+        if (rev && revealed) return;
+
+        revealed = rev;
+
+        for (int i = 0; i < iconsList.Count; i++)
         {
-            revealed = true;
-            gameObject.SetActive(true);
+            iconsList[i].SetActive((i == id - 1) && revealed);
         }
+        for (int i = 0; i < iconsUnknownList.Count; i++)
+        {
+            iconsUnknownList[i].SetActive((i == id - 1) && !revealed);
+        }
+
+        CheckAndSetAvailable(gameController.currencyA, gameController.currencyB);
     }
 
     public void CheckAndSetAvailable(int cur1, int cur2)
@@ -62,37 +78,64 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (newAvailable != available)
         {
-            var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
-            nameTextComponent.color = newAvailable ? Color.green : Color.red;
+            
 
             available = newAvailable;
+        }
+
+        if (!revealed) return;
+
+        if (currencyA > 0 && currencyB > 0)
+        {
+            var currency1TextComponent = coinGemPrefab.transform.Find("RecipeCurrency1").GetComponent<TMP_Text>();
+            currency1TextComponent.text = currencyA.ToString();
+            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.white : Color.red;
+
+            var currency2TextComponent = coinGemPrefab.transform.Find("RecipeCurrency2").GetComponent<TMP_Text>();
+            currency2TextComponent.text = currencyB.ToString();
+            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.white : Color.red;
+
+            coinGemPrefab.SetActive(true);
+        }
+        else if (currencyA > 0)
+        {
+            var currency1TextComponent = coinPrefab.transform.Find("RecipeCurrency1").GetComponent<TMP_Text>();
+            currency1TextComponent.text = currencyA.ToString();
+            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.white : Color.red;
+
+            coinPrefab.SetActive(true);
+        }
+        else
+        {
+            var currency2TextComponent = gemPrefab.transform.Find("RecipeCurrency2").GetComponent<TMP_Text>();
+            currency2TextComponent.text = currencyB.ToString();
+            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.white : Color.red;
+
+            gemPrefab.SetActive(true);
         }
     }
 
     public void UpdateText()
     {
-        var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
-        nameTextComponent.text = nameText;
-        nameTextComponent.color = Color.red;
+        //var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
+        //nameTextComponent.text = nameText;
+        //nameTextComponent.color = Color.red;
 
-
-        var currency1TextComponent = transform.Find("RecipeCurrency1").GetComponent<TMP_Text>();
-        currency1TextComponent.text = currencyA.ToString();
-
-        var currency2TextComponent = transform.Find("RecipeCurrency2").GetComponent<TMP_Text>();
-        currency2TextComponent.text = currencyB.ToString();
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
     public void InitTooltip()

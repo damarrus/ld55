@@ -18,8 +18,8 @@ public class GameController : MonoBehaviour
 
     public int improveChance = 0;
 
-    int currencyA = 0;
-    int currencyB = 0;
+    public int currencyA = 0;
+    public int currencyB = 0;
 
     int currencyAMult = 1;
     int currencyBMult = 1;
@@ -235,6 +235,14 @@ public class GameController : MonoBehaviour
         };
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            UpdateCurrency(9999, 9999);
+        }
+    }
+
     void Start()
     {
         // TODO ������ ����� ����. ����� ������� �������������
@@ -377,22 +385,9 @@ public class GameController : MonoBehaviour
                     filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
                 }
                 PayEndEvent += SnakePayHandlerMethod;
-                if (!slot.isImproved)
-                {
-                    var activeSlot = GetFirstActiveEmptySlot();
-                    if (activeSlot == null) activeSlot = slots[0];
-
-                    activeSlot.setActive(false);
-                    slot.paramInt = activeSlot.id;
-                }
             }, (slot) =>
             {
                 PayEndEvent -= SnakePayHandlerMethod;
-                if (!slot.isImproved)
-                {
-                    var blockedSlot = slots.Find(s => s.id == slot.paramInt);
-                    blockedSlot.setActive(true);
-                }
             }
         ));
         recipes.Add(InitializeRecipe(eyeId, eyePriceA, eyePriceB, eyeLifeTime, eyeImprovedLifeTime, eyeName, eyeDescription,
@@ -555,7 +550,7 @@ public class GameController : MonoBehaviour
             RecipesReveal.TryGetValue(recipe.id, out var revealedRecipes);
             foreach (var revealedRecipeId in revealedRecipes)
             {
-                recipes.Find(r => r.id == revealedRecipeId).SetRevealed();
+                recipes.Find(r => r.id == revealedRecipeId).SetRevealed(true);
             }
         }
     }
@@ -642,13 +637,13 @@ public class GameController : MonoBehaviour
         recipe.InitTooltip();
         if (RecipesRevealedOnStart.Contains(id))
         {
-            recipe.SetRevealed();
+            recipe.SetRevealed(true);
         } else
         {
-            recipePrefabObject.SetActive(false);
+            recipe.SetRevealed(false);
         }
 
-        recipe.UpdateText();
+        recipe.CheckAndSetAvailable(currencyA, currencyB);
 
         return recipe;
     }

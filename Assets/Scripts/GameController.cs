@@ -385,22 +385,9 @@ public class GameController : MonoBehaviour
                     filteredSlot.increaseLifeTime(filteredSlot.lifeTimeMax);
                 }
                 PayEndEvent += SnakePayHandlerMethod;
-                if (!slot.isImproved)
-                {
-                    var activeSlot = GetFirstActiveEmptySlot();
-                    if (activeSlot == null) activeSlot = slots[0];
-
-                    activeSlot.setActive(false);
-                    slot.paramInt = activeSlot.id;
-                }
             }, (slot) =>
             {
                 PayEndEvent -= SnakePayHandlerMethod;
-                if (!slot.isImproved)
-                {
-                    var blockedSlot = slots.Find(s => s.id == slot.paramInt);
-                    blockedSlot.setActive(true);
-                }
             }
         ));
         recipes.Add(InitializeRecipe(eyeId, eyePriceA, eyePriceB, eyeLifeTime, eyeImprovedLifeTime, eyeName, eyeDescription,

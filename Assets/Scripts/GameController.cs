@@ -450,10 +450,10 @@ public class GameController : MonoBehaviour
             {
             }, (slot) =>
             {
-                UpdateCurrencyMult(slot.isImproved ? fireImprovedMultAddAB - 1 : fireMultAddAB - 1, slot.isImproved ? fireImprovedMultAddAB - 1 : fireMultAddAB - 1);
+                UpdateCurrencyMult(slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB, slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB);
             }, (slot) =>
             {
-                UpdateCurrencyMult(slot.isImproved ? -(fireImprovedMultAddAB - 1) : -(fireMultAddAB - 1), slot.isImproved ? -(fireImprovedMultAddAB - 1) : -(fireMultAddAB - 1));
+                UpdateCurrencyMult(slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB, slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB, true);
             }
         ));
         recipes.Add(InitializeRecipe(octopusId, octopusPriceA, octopusPriceB, octopusLifeTime, octopusImprovedLifeTime, octopusName, octopusDescription,
@@ -575,10 +575,18 @@ public class GameController : MonoBehaviour
         return (deltaCurrencyAMulted, deltaCurrencyBMulted);
     }
 
-    void UpdateCurrencyMult(int deltaMultCurrencyA, int deltaMultCurrencyB)
+    void UpdateCurrencyMult(int deltaMultCurrencyA, int deltaMultCurrencyB, bool division = false)
     {
-        currencyAMult += deltaMultCurrencyA;
-        currencyBMult += deltaMultCurrencyB;
+        if (division)
+        {
+            currencyAMult /= deltaMultCurrencyA;
+            currencyBMult /= deltaMultCurrencyB;
+        }
+        else
+        {
+            currencyAMult *= deltaMultCurrencyA;
+            currencyBMult *= deltaMultCurrencyB;
+        }
 
         UpdateCurrencyText();
     }

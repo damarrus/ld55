@@ -115,15 +115,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public void UpdateText()
-    {
-        //var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
-        //nameTextComponent.text = nameText;
-        //nameTextComponent.color = Color.red;
-
-        
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         var tooltipObject = transform.Find("Tooltip").gameObject;

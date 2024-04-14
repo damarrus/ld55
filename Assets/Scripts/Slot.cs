@@ -93,7 +93,14 @@ public class Slot : MonoBehaviour
             for (int i = 0; i < prefabList.Count; i++)
             {
                 prefabList[i].SetActive(i == rec.id - 1);
-                prefabList[i].transform.Find("upgrade").gameObject.SetActive(isImproved);
+                if (i == rec.id - 1)
+                {
+                    prefabList[i].transform.Find("upgrade").gameObject.SetActive(isImproved);
+                    if (Random.Range(0, 100) < 50)
+                    {
+                        prefabList[i].transform.localScale = new Vector3(-prefabList[i].transform.localScale.x, prefabList[i].transform.localScale.y, prefabList[i].transform.localScale.z);
+                    }
+                }
             }
 
             rec.startAction(this);

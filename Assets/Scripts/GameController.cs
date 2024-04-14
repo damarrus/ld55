@@ -21,18 +21,13 @@ public class GameController : MonoBehaviour
     int currencyA = 0;
     int currencyB = 0;
 
-    int currencyAIncr = 0;
-    int currencyBIncr = 0;
     int currencyAMult = 1;
     int currencyBMult = 1;
-    int currencyADelta = 0;
-    int currencyBDelta = 0;
 
     List<Recipe> recipes = new List<Recipe>();
     List<Slot> slots = new List<Slot>();
 
     
-    int minSlotCount = 1;
     int maxSlotCount = 12;
 
     Dictionary<int, int> RecipesOrder { get; set; }
@@ -263,8 +258,8 @@ public class GameController : MonoBehaviour
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
                     var deltaA = slot.isImproved ? catImprovedAddA : catAddA;
-                    UpdateCurrency(deltaA, 0);
-                    slot.createFlyOut(deltaA, true);
+                    var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
+                    slot.createFlyOut(realDeltaA, true);
                 }, catAddDelay));
             }, (slot) => 
             {
@@ -295,9 +290,10 @@ public class GameController : MonoBehaviour
                     var rateB = slot.isImproved ? traderImprovedRateB : traderRateB;
                     if (currencyA >= rateA)
                     {
-                        UpdateCurrency(-rateA, rateB);
-                        slot.createFlyOut(-rateA, true);
-                        slot.createFlyOut(rateB, false);
+                        var (realDeltaA, realDeltaB) = UpdateCurrency(-rateA, rateB);
+                        // TODO сделать корутину
+                        //slot.createFlyOut(-realDeltaA, true);
+                        slot.createFlyOut(realDeltaB, false);
                     }
 
                 }, traderConvertDelay));
@@ -316,8 +312,8 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 var deltaA = slot.isImproved ? mushroomImprovedEndAddA : mushroomEndAddA;
-                UpdateCurrency(deltaA, 0);
-                slot.createFlyOut(deltaA, true);
+                var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
+                slot.createFlyOut(realDeltaA, true);
             }
         ));
         recipes.Add(InitializeRecipe(druidId, druidPriceA, druidPriceB, druidLifeTime, druidImprovedLifeTime, druidName, druidDescription,
@@ -360,8 +356,8 @@ public class GameController : MonoBehaviour
                         int randomIndex = random.Next(0, filteredSlots.Count);
                         filteredSlots[randomIndex].setRecipe(null);
                         var deltaB = slot.isImproved ? gluttonImprovedConvertAddB : gluttonConvertAddB;
-                        UpdateCurrency(0, deltaB);
-                        slot.createFlyOut(deltaB, false);
+                        var (realDeltaA, realDeltaB) = UpdateCurrency(0, deltaB);
+                        slot.createFlyOut(realDeltaB, false);
                     }
                     
                 }, gluttonConvertAddDelay));
@@ -431,8 +427,8 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 var deltaA = currencyA * (slot.isImproved ? pteroImprovedMultInstantlyAdd : pteroMultInstantlyAdd);
-                UpdateCurrency(deltaA, 0);
-                slot.createFlyOut(deltaA, true);
+                var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
+                slot.createFlyOut(realDeltaA, true);
             }, (slot) =>
             {
 
@@ -447,8 +443,8 @@ public class GameController : MonoBehaviour
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
                     var deltaB = slot.isImproved ? spiderImprovedAddB : spiderAddB;
-                    UpdateCurrency(0, deltaB);
-                    slot.createFlyOut(deltaB, false);
+                    var (realDeltaA, realDeltaB) = UpdateCurrency(0, deltaB);
+                    slot.createFlyOut(realDeltaB, false);
                 }, spiderAddDelay));
             }, (slot) =>
             {
@@ -475,8 +471,8 @@ public class GameController : MonoBehaviour
                 {
                     var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
                     var deltaA = octopusAddAForEach * filteredSlots.Count;
-                    UpdateCurrency(deltaA, 0);
-                    slot.createFlyOut(deltaA, true);
+                    var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
+                    slot.createFlyOut(realDeltaA, true);
                 }, octopusAddForEachDelay));
             }, (slot) =>
             {
@@ -564,14 +560,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB) // , out int realDeltaCurrencyA, out int realDeltaCurrencyB
+    public (int,int) UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB)
     {
-        //realDeltaCurrencyA = 0;
-        //realDeltaCurrencyB = 0;
-        currencyA += deltaCurrencyA;
+        var deltaCurrencyAMulted = deltaCurrencyA * currencyAMult;
+        var deltaCurrencyBMulted = deltaCurrencyB * currencyBMult;
+
+        currencyA += deltaCurrencyAMulted;
         if (currencyA > currencyABaseMax) currencyA = currencyABaseMax;
 
-        currencyB += deltaCurrencyB;
+        currencyB += deltaCurrencyBMulted;
         if (currencyB > currencyBBaseMax) currencyB = currencyBBaseMax;
 
         UpdateCurrencyText();
@@ -580,14 +577,8 @@ public class GameController : MonoBehaviour
         {
             recipe.CheckAndSetAvailable(currencyA, currencyB);
         }
-    }
 
-    void UpdateCurrencyIncr(int deltaIncrCurrencyA, int deltaIncrCurrencyB)
-    {
-        currencyAIncr += deltaIncrCurrencyA;
-        currencyBIncr += deltaIncrCurrencyB;
-
-        UpdateCurrencyText();
+        return (deltaCurrencyAMulted, deltaCurrencyBMulted);
     }
 
     void UpdateCurrencyMult(int deltaMultCurrencyA, int deltaMultCurrencyB)
@@ -625,11 +616,6 @@ public class GameController : MonoBehaviour
 
     void UpdateCurrencyText()
     {
-        currencyADelta = currencyAIncr * currencyAMult;
-        currencyBDelta = currencyBIncr * currencyBMult;
-
-        if (currencyADelta == 0 && !HasFilledSlot() && currencyA < 3) currencyADelta = 1;
-
         Currency1Component.text = currencyA.ToString() + "/" + currencyABaseMax.ToString();
         Currency2Component.text = currencyB.ToString() + "/" + currencyBBaseMax.ToString();
     }
@@ -671,7 +657,10 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            UpdateCurrency(currencyADelta, currencyBDelta);
+            if (!HasFilledSlot() && currencyA < 3) {
+                UpdateCurrency(1, 0);
+            }
+            
             yield return new WaitForSeconds(1f);
         }
     }

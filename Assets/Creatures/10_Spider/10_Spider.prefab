@@ -672,6 +672,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: upgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 3539891900131106503, guid: eedebd2a48fde0b41a1824b35fde42d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4988650804460688112, guid: eedebd2a48fde0b41a1824b35fde42d8, type: 3}
       propertyPath: ShapeModule.radius.value
       value: 0.2

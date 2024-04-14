@@ -50,6 +50,8 @@ MonoBehaviour:
   recipePrefab: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
   slotPrefab: {fileID: 4543251669645451873, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
   improveChance: 5
+  currencyA: 0
+  currencyB: 0
   currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
@@ -75,16 +77,16 @@ MonoBehaviour:
   greedImprovedMultMaxA: 3
   traderId: 3
   traderName: Trader
-  traderDescription: Convert 5 A to 1 B
+  traderDescription: Convert 5 A to 2 B
   traderPriceA: 8
   traderPriceB: 0
-  traderLifeTime: 30
-  traderImprovedLifeTime: 60
+  traderLifeTime: 20
+  traderImprovedLifeTime: 40
   traderRateA: 5
   traderRateB: 1
   traderImprovedRateA: 5
   traderImprovedRateB: 2
-  traderConvertDelay: 3
+  traderConvertDelay: 4
   mushroomId: 4
   mushroomName: Mushroom
   mushroomDescription: After death gives 20 A

@@ -89,7 +89,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
+            Debug.Log(improvedChance);
             improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
+            
             
             if (Random.Range(0, 100) < improvedChance)
             {

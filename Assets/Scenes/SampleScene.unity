@@ -4368,6 +4368,10 @@ PrefabInstance:
       propertyPath: snakeImprovedLifeTime
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
+      propertyPath: motherCatImprovedChanceToImprove
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1868590459636698713, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
       propertyPath: m_RootOrder
       value: 3

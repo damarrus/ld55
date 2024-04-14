@@ -512,9 +512,13 @@ public class GameController : MonoBehaviour
             {
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
-                    var slot = GetFirstActiveEmptySlot();
-                    if (slot != null) slot.setRecipe(recipes[0], slot.isImproved ? motherCatImprovedChanceToImprove : 0);
-
+                    var s = GetFirstActiveEmptySlot();
+                    if (s != null)
+                    {
+                        PayStartEvent?.Invoke(s);
+                        s.setRecipe(recipes[0], slot.isImproved ? motherCatImprovedChanceToImprove : 0);
+                        PayEndEvent?.Invoke(s);
+                    }
                 }, motherCatSummonDelay));
 
             }, (slot) =>

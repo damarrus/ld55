@@ -166,7 +166,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         var canvas = transform.Find("Canvas");
         var lifeTimeTextComponent = canvas.Find("LifeTime").GetComponent<TMP_Text>();
-        lifeTimeTextComponent.text = lifeTimeLeft.ToString();
+        lifeTimeTextComponent.text = gameController.makeTimeString(lifeTimeLeft).ToString();
     }
 
     IEnumerator lifeTimeCoroutine()

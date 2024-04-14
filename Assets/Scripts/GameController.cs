@@ -245,9 +245,6 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        // TODO ������ ����� ����. ����� ������� �������������
-        // TODO ������� ��������� ��������
-
         improveChance = baseImproveChance;
 
         InitConfig();
@@ -541,7 +538,7 @@ public class GameController : MonoBehaviour
         var slot = GetFirstActiveEmptySlot();
         if (slot != null && recipe.revealed && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
-            UpdateCurrency(-recipe.currencyA, -recipe.currencyB);
+            UpdateCurrency(-recipe.currencyA, -recipe.currencyB, false);
 
             PayStartEvent?.Invoke(slot);
             slot.setRecipe(recipe);
@@ -555,10 +552,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public (int,int) UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB)
+    public (int,int) UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB, bool needMult = true)
     {
-        var deltaCurrencyAMulted = deltaCurrencyA * currencyAMult;
-        var deltaCurrencyBMulted = deltaCurrencyB * currencyBMult;
+        var deltaCurrencyAMulted = needMult ? deltaCurrencyA * currencyAMult : deltaCurrencyA;
+        var deltaCurrencyBMulted = needMult ? deltaCurrencyB * currencyBMult : deltaCurrencyB;
 
         currencyA += deltaCurrencyAMulted;
         if (currencyA > currencyABaseMax) currencyA = currencyABaseMax;
@@ -653,7 +650,7 @@ public class GameController : MonoBehaviour
         while (true)
         {
             if (!HasFilledSlot() && currencyA < 3) {
-                UpdateCurrency(1, 0);
+                UpdateCurrency(1, 0, false);
             }
             
             yield return new WaitForSeconds(1f);

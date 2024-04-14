@@ -262,7 +262,6 @@ public class GameController : MonoBehaviour
     void Start()
     {
         improveChance = baseImproveChance;
-
         InitConfig();
 
         Currency1Component.text = currencyA.ToString();
@@ -744,6 +743,11 @@ public class GameController : MonoBehaviour
     public void togglePause()
     {
         Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+    }
+
+    public string makeTimeString(int seconds)
+    {
+        return ((int)(seconds / 60)).ToString() + ":" + (seconds % 60).ToString();
     }
 
 }

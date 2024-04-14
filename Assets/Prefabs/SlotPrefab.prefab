@@ -486,6 +486,7 @@ MonoBehaviour:
   - {fileID: 4850781630496767963}
   - {fileID: 8631734410939254876}
   - {fileID: 4140465976886857383}
+  tooltipObject: {fileID: 5896535991975595421}
 --- !u!212 &4998253600214082792
 SpriteRenderer:
   m_ObjectHideFlags: 0

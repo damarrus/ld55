@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
     public int catId = 1;
     public string catName = "Cat";
     public string catDescription = "Increase increment A +2";
+    public string catImprovedDescription = "Increase increment A +2";
     public int catPriceA = 3;
     public int catPriceB = 0;
     public int catLifeTime = 5;
@@ -61,6 +62,7 @@ public class GameController : MonoBehaviour
     public int greedId = 2;
     public string greedName = "Greed";
     public string greedDescription = "Increase max A/B x2";
+    public string greedImprovedDescription = "Increase max A/B x2";
     public int greedPriceA = 10;
     public int greedPriceB = 0;
     public int greedLifeTime = 5;
@@ -71,6 +73,7 @@ public class GameController : MonoBehaviour
     public int traderId = 3;
     public string traderName = "Trader";
     public string traderDescription = "Convert 10 A to 1 B";
+    public string traderImprovedDescription = "Convert 10 A to 1 B";
     public int traderPriceA = 10;
     public int traderPriceB = 0;
     public int traderLifeTime = 30;
@@ -84,6 +87,7 @@ public class GameController : MonoBehaviour
     public int mushroomId = 4;
     public string mushroomName = "Mushroom";
     public string mushroomDescription = "After death gives 10 A";
+    public string mushroomImprovedDescription = "After death gives 10 A";
     public int mushroomPriceA = 0;
     public int mushroomPriceB = 1;
     public int mushroomLifeTime = 60;
@@ -94,6 +98,7 @@ public class GameController : MonoBehaviour
     public int druidId = 5;
     public string druidName = "Druid";
     public string druidDescription = "Gives 3 slots";
+    public string druidImprovedDescription = "Gives 3 slots";
     public int druidPriceA = 10;
     public int druidPriceB = 1;
     public int druidLifeTime = 60;
@@ -104,6 +109,7 @@ public class GameController : MonoBehaviour
     public int gluttonId = 6;
     public string gluttonName = "Glutton";
     public string gluttonDescription = "Convert 1 demon to 1 B";
+    public string gluttonImprovedDescription = "Convert 1 demon to 1 B";
     public int gluttonPriceA = 0;
     public int gluttonPriceB = 2;
     public int gluttonLifeTime = 30;
@@ -115,6 +121,7 @@ public class GameController : MonoBehaviour
     public int snakeId = 7;
     public string snakeName = "Snake";
     public string snakeDescription = "Increases life time";
+    public string snakeImprovedDescription = "Increases life time";
     public int snakePriceA = 0;
     public int snakePriceB = 10;
     public int snakeLifeTime = 60;
@@ -124,6 +131,7 @@ public class GameController : MonoBehaviour
     public int eyeId = 8;
     public string eyeName = "Eye";
     public string eyeDescription = "Gives 1 B when summoned";
+    public string eyeImprovedDescription = "Gives 1 B when summoned";
     public int eyePriceA = 0;
     public int eyePriceB = 10;
     public int eyeLifeTime = 30;
@@ -134,6 +142,7 @@ public class GameController : MonoBehaviour
     public int pteroId = 9;
     public string pteroName = "Ptero";
     public string pteroDescription = "Gives x2 A";
+    public string pteroImprovedDescription = "Gives x2 A";
     public int pteroPriceA = 0;
     public int pteroPriceB = 5;
     public int pteroLifeTime = 3;
@@ -144,6 +153,7 @@ public class GameController : MonoBehaviour
     public int spiderId = 10;
     public string spiderName = "Spider";
     public string spiderDescription = "Increase increment B +1";
+    public string spiderImprovedDescription = "Increase increment B +1";
     public int spiderPriceA = 0;
     public int spiderPriceB = 10;
     public int spiderLifeTime = 10;
@@ -155,6 +165,7 @@ public class GameController : MonoBehaviour
     public int fireId = 11;
     public string fireName = "Fire";
     public string fireDescription = "Increase increment A/B x2";
+    public string fireImprovedDescription = "Increase increment A/B x2";
     public int firePriceA = 40;
     public int firePriceB = 40;
     public int fireLifeTime = 15;
@@ -165,6 +176,7 @@ public class GameController : MonoBehaviour
     public int octopusId = 12;
     public string octopusName = "Octopus";
     public string octopusDescription = "Gives 1 A for each demons every 2s";
+    public string octopusImprovedDescription = "Gives 1 A for each demons every 2s";
     public int octopusPriceA = 20;
     public int octopusPriceB = 0;
     public int octopusLifeTime = 10;
@@ -175,6 +187,7 @@ public class GameController : MonoBehaviour
     public int jokerId = 13;
     public string jokerName = "Joker";
     public string jokerDescription = "Increase chance for improved summon";
+    public string jokerImprovedDescription = "Increase chance for improved summon";
     public int jokerPriceA = 5;
     public int jokerPriceB = 5;
     public int jokerLifeTime = 20;
@@ -185,6 +198,7 @@ public class GameController : MonoBehaviour
     public int motherCatId = 14;
     public string motherCatName = "MotherCat";
     public string motherCatDescription = "Spawn cats every 5s";
+    public string motherCatImrpovedDescription = "Spawn cats every 5s";
     public int motherCatPriceA = 100;
     public int motherCatPriceB = 0;
     public int motherCatLifeTime = 30;
@@ -195,6 +209,7 @@ public class GameController : MonoBehaviour
     public int dragonId = 15;
     public string dragonName = "Dragon";
     public string dragonDescription = "You win";
+    public string dragonImprovedDescription = "You win";
     public int dragonPriceA = 10;
     public int dragonPriceB = 0;
     public int dragonLifeTime = 0;
@@ -254,7 +269,7 @@ public class GameController : MonoBehaviour
 
         StartCoroutine(MainCoroutine());
 
-        recipes.Add(InitializeRecipe(catId, catPriceA, catPriceB, catLifeTime, catImprovedLifeTime, catName, catDescription,
+        recipes.Add(InitializeRecipe(catId, catPriceA, catPriceB, catLifeTime, catImprovedLifeTime, catName, catDescription, catImprovedDescription,
             (slot) =>
             {
 
@@ -271,7 +286,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             } 
         ));
-        recipes.Add(InitializeRecipe(greedId, greedPriceA, greedPriceB, greedLifeTime, greedImprovedLifeTime, greedName, greedDescription,
+        recipes.Add(InitializeRecipe(greedId, greedPriceA, greedPriceB, greedLifeTime, greedImprovedLifeTime, greedName, greedDescription, greedImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -283,7 +298,7 @@ public class GameController : MonoBehaviour
                 UpdateMaxCurrency(slot.isImproved ? greedImprovedMultMaxA : greedMultMaxA, slot.isImproved ? greedImprovedMultMaxA : greedMultMaxA, true);
             }
         ));
-        recipes.Add(InitializeRecipe(traderId, traderPriceA, traderPriceB, traderLifeTime, traderImprovedLifeTime, traderName, traderDescription,
+        recipes.Add(InitializeRecipe(traderId, traderPriceA, traderPriceB, traderLifeTime, traderImprovedLifeTime, traderName, traderDescription, traderImprovedDescription,
             (slot) =>
             {
 
@@ -309,7 +324,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(mushroomId, mushroomPriceA, mushroomPriceB, mushroomLifeTime, mushroomImprovedLifeTime, mushroomName, mushroomDescription,
+        recipes.Add(InitializeRecipe(mushroomId, mushroomPriceA, mushroomPriceB, mushroomLifeTime, mushroomImprovedLifeTime, mushroomName, mushroomDescription, mushroomImprovedDescription,
             (slot) =>
             {
                 
@@ -323,7 +338,7 @@ public class GameController : MonoBehaviour
                 slot.createFlyOut(realDeltaA, true);
             }
         ));
-        recipes.Add(InitializeRecipe(druidId, druidPriceA, druidPriceB, druidLifeTime, druidImprovedLifeTime, druidName, druidDescription,
+        recipes.Add(InitializeRecipe(druidId, druidPriceA, druidPriceB, druidLifeTime, druidImprovedLifeTime, druidName, druidDescription, druidImprovedDescription,
             (slot) =>
             {
 
@@ -348,7 +363,7 @@ public class GameController : MonoBehaviour
                 slot.paramListInt = new List<int>();
             }
         ));
-        recipes.Add(InitializeRecipe(gluttonId, gluttonPriceA, gluttonPriceB, gluttonLifeTime, gluttonImprovedLifeTime, gluttonName, gluttonDescription,
+        recipes.Add(InitializeRecipe(gluttonId, gluttonPriceA, gluttonPriceB, gluttonLifeTime, gluttonImprovedLifeTime, gluttonName, gluttonDescription, gluttonImprovedDescription,
             (slot) =>
             {
 
@@ -373,7 +388,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(snakeId, snakePriceA, snakePriceB, snakeLifeTime, snakeImprovedLifeTime, snakeName, snakeDescription,
+        recipes.Add(InitializeRecipe(snakeId, snakePriceA, snakePriceB, snakeLifeTime, snakeImprovedLifeTime, snakeName, snakeDescription, snakeImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -389,7 +404,7 @@ public class GameController : MonoBehaviour
                 PayEndEvent -= SnakePayHandlerMethod;
             }
         ));
-        recipes.Add(InitializeRecipe(eyeId, eyePriceA, eyePriceB, eyeLifeTime, eyeImprovedLifeTime, eyeName, eyeDescription,
+        recipes.Add(InitializeRecipe(eyeId, eyePriceA, eyePriceB, eyeLifeTime, eyeImprovedLifeTime, eyeName, eyeDescription, eyeImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -414,7 +429,7 @@ public class GameController : MonoBehaviour
                 }
             }
         ));
-        recipes.Add(InitializeRecipe(pteroId, pteroPriceA, pteroPriceB, pteroLifeTime, pteroImprovedLifeTime, pteroName, pteroDescription,
+        recipes.Add(InitializeRecipe(pteroId, pteroPriceA, pteroPriceB, pteroLifeTime, pteroImprovedLifeTime, pteroName, pteroDescription, pteroImprovedDescription,
             (slot) =>
             {
 
@@ -428,7 +443,7 @@ public class GameController : MonoBehaviour
 
             }
         ));
-        recipes.Add(InitializeRecipe(spiderId, snakePriceA, snakePriceB, spiderLifeTime, spiderImprovedLifeTime, spiderName, spiderDescription,
+        recipes.Add(InitializeRecipe(spiderId, snakePriceA, snakePriceB, spiderLifeTime, spiderImprovedLifeTime, spiderName, spiderDescription, spiderImprovedDescription,
             (slot) =>
             {
 
@@ -445,7 +460,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(fireId, firePriceA, firePriceB, fireLifeTime, fireImprovedLifeTime, fireName, fireDescription,
+        recipes.Add(InitializeRecipe(fireId, firePriceA, firePriceB, fireLifeTime, fireImprovedLifeTime, fireName, fireDescription, fireImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -456,7 +471,7 @@ public class GameController : MonoBehaviour
                 UpdateCurrencyMult(slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB, slot.isImproved ? fireImprovedMultAddAB : fireMultAddAB, true);
             }
         ));
-        recipes.Add(InitializeRecipe(octopusId, octopusPriceA, octopusPriceB, octopusLifeTime, octopusImprovedLifeTime, octopusName, octopusDescription,
+        recipes.Add(InitializeRecipe(octopusId, octopusPriceA, octopusPriceB, octopusLifeTime, octopusImprovedLifeTime, octopusName, octopusDescription, octopusImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -473,7 +488,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(jokerId, jokerPriceA, jokerPriceB, jokerLifeTime, jokerImprovedLifeTime, jokerName, jokerDescription,
+        recipes.Add(InitializeRecipe(jokerId, jokerPriceA, jokerPriceB, jokerLifeTime, jokerImprovedLifeTime, jokerName, jokerDescription, jokerImprovedDescription,
             (slot) =>
             {
             }, (slot) =>
@@ -484,7 +499,7 @@ public class GameController : MonoBehaviour
                 improveChance /= slot.isImproved ? jokerImprovedMultChanceToImprove : jokerMultChanceToImprove;
             }
         ));
-        recipes.Add(InitializeRecipe(motherCatId, motherCatPriceA, motherCatPriceB, motherCatLifeTime, motherCatImprovedLifeTime, motherCatName, motherCatDescription,
+        recipes.Add(InitializeRecipe(motherCatId, motherCatPriceA, motherCatPriceB, motherCatLifeTime, motherCatImprovedLifeTime, motherCatName, motherCatDescription, motherCatImrpovedDescription,
             (slot) =>
             {
                 slot.isImproved = true;
@@ -502,7 +517,7 @@ public class GameController : MonoBehaviour
                 StopCoroutine(slot.actionCoroutine);
             }
         ));
-        recipes.Add(InitializeRecipe(dragonId, dragonPriceA, dragonPriceB, dragonLifeTime, dragonImprovedLifeTime, dragonName, dragonDescription,
+        recipes.Add(InitializeRecipe(dragonId, dragonPriceA, dragonPriceB, dragonLifeTime, dragonImprovedLifeTime, dragonName, dragonDescription, dragonImprovedDescription,
             (slot) =>
             {
 
@@ -623,7 +638,7 @@ public class GameController : MonoBehaviour
     }
 
     Recipe InitializeRecipe(
-        int id, int currencyA, int currencyB, int lifeTime, int improvedLifeTime, string nameText, string descriptionText,
+        int id, int currencyA, int currencyB, int lifeTime, int improvedLifeTime, string nameText, string descriptionText, string improvedDescriptionText,
         Recipe.ImprovedAction improvedAction, Recipe.StartAction startAction, Recipe.EndAction endAction)
     {
         var recipeSlotId = RecipesOrder.FirstOrDefault(x => x.Value == id).Key;
@@ -634,6 +649,7 @@ public class GameController : MonoBehaviour
         recipe.id = id;
         recipe.nameText = nameText;
         recipe.descriptionText = descriptionText;
+        recipe.improvedDescriptionText = improvedDescriptionText;
         recipe.currencyA = currencyA;
         recipe.currencyB = currencyB;
         recipe.lifeTime = lifeTime;

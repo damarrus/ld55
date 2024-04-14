@@ -11,6 +11,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public int id = 0;
     public string nameText = "";
     public string descriptionText = "";
+    public string improvedDescriptionText = "";
     public int currencyA = 0;
     public int currencyB = 0;
     public int lifeTime = 0;

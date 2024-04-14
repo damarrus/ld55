@@ -21,6 +21,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public List<int> paramListInt = new List<int>();
 
     public List<GameObject> prefabList;
+    public GameObject tooltipObject;
 
     private void Start()
     {
@@ -113,6 +114,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
 
             rec.startAction(this);
+            InitTooltip();
         } else
         {
             nameTextComponent.text = "Empty";
@@ -198,5 +200,15 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
+    }
+
+    public void InitTooltip()
+    {
+        tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = recipe.nameText;
+        if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.green;
+
+        tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = isImproved
+            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + recipe.improvedLifeTime.ToString()
+            : recipe.descriptionText + "\n\r" + "Lifetime: " + recipe.lifeTime.ToString();
     }
 }

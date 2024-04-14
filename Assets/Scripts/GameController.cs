@@ -204,41 +204,41 @@ public class GameController : MonoBehaviour
     {
         RecipesOrder = new Dictionary<int, int>()
         { // recipeSlotID : recipeID
-            { 1, 1   }, { 2, 2   },
-            { 3, 3   }, { 4, 4   },
-            { 5, 5   }, { 6, 6   },
-            { 7, 7   }, { 8, 8   },
-            { 9, 9   }, { 10, 10 },
-            { 11, 11 }, { 12, 12 },
-            { 13, 13 }, { 14, 14 },
+            { 1, 1   }, { 2, 3   },
+            { 3, 5   }, { 4, 4   },
+            { 5, 7   }, { 6, 10  },
+            { 7, 14  }, { 8, 6   },
+            { 9, 2   }, { 10, 9  },
+            { 11, 13 }, { 12, 11 },
+            { 13, 12 }, { 14, 8 },
             {       15, 15       }
         };
 
-        RecipesRevealedOnStart = new List<int>() { 1, 2, 3, 15 };
+        RecipesRevealedOnStart = new List<int>() { 1, 3, 15 };
         RecipesReveal = new Dictionary<int, List<int>>()
         {
             { 1,  new List<int>() {  } }, 
-            { 2,  new List<int>() { 4 } }, 
-            { 3,  new List<int>() { 4 } },
-            { 4,  new List<int>() { 5, 6 } },
-            { 5,  new List<int>() { 7, 8, 9 } },
-            { 6,  new List<int>() { 7, 8, 9 } },
-            { 7,  new List<int>() { 10, 11, 12 } },
-            { 8,  new List<int>() { 10, 11, 12 } },
-            { 9,  new List<int>() { 10, 11, 12 } },
-            { 10, new List<int>() { 13 } },
-            { 11, new List<int>() { 13 } },
-            { 12, new List<int>() { 13 } },
-            { 13, new List<int>() { 14 } },
-            { 14, new List<int>() {  } },
+            { 2,  new List<int>() { 13, 11, 12, 8 } }, 
+            { 3,  new List<int>() { 5, 4 } },
+            { 4,  new List<int>() { 7, 10 } },
+            { 5,  new List<int>() { 7, 10 } },
+            { 6,  new List<int>() { 2, 9 } },
+            { 7,  new List<int>() { 14, 6 } },
+            { 8,  new List<int>() {  } },
+            { 9,  new List<int>() {  } },
+            { 10, new List<int>() { 14, 16 } },
+            { 11, new List<int>() {  } },
+            { 12, new List<int>() {  } },
+            { 13, new List<int>() {  } },
+            { 14, new List<int>() { 2, 9 } },
             { 15, new List<int>() {  } },
         };
     }
 
     void Start()
     {
-        // TODO убрать общий такт. Везде сделать индивидуально
-        // TODO вынести параметры отдельно
+        // TODO пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         improveChance = baseImproveChance;
 
@@ -291,7 +291,7 @@ public class GameController : MonoBehaviour
                     if (currencyA >= rateA)
                     {
                         var (realDeltaA, realDeltaB) = UpdateCurrency(-rateA, rateB);
-                        // TODO сделать корутину
+                        // TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         //slot.createFlyOut(-realDeltaA, true);
                         slot.createFlyOut(realDeltaB, false);
                     }

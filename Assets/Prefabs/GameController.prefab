@@ -50,7 +50,7 @@ MonoBehaviour:
   recipePrefab: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
   slotPrefab: {fileID: 4543251669645451873, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
   improveChance: 5
-  currencyABaseMax: 20
+  currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
   baseImproveChance: 5
@@ -59,7 +59,7 @@ MonoBehaviour:
   catDescription: Increase increment A +2
   catPriceA: 3
   catPriceB: 0
-  catLifeTime: 10
+  catLifeTime: 12
   catImprovedLifeTime: 30
   catAddA: 1
   catImprovedAddA: 3
@@ -67,22 +67,22 @@ MonoBehaviour:
   greedId: 2
   greedName: Greed
   greedDescription: Increase max A/B x2
-  greedPriceA: 8
-  greedPriceB: 0
-  greedLifeTime: 120
-  greedImprovedLifeTime: 300
+  greedPriceA: 10
+  greedPriceB: 10
+  greedLifeTime: 300
+  greedImprovedLifeTime: 1000
   greedMultMaxA: 2
   greedImprovedMultMaxA: 3
   traderId: 3
   traderName: Trader
   traderDescription: Convert 5 A to 1 B
-  traderPriceA: 10
+  traderPriceA: 8
   traderPriceB: 0
   traderLifeTime: 30
   traderImprovedLifeTime: 60
   traderRateA: 5
   traderRateB: 1
-  traderImprovedRateA: 8
+  traderImprovedRateA: 5
   traderImprovedRateB: 2
   traderConvertDelay: 3
   mushroomId: 4
@@ -90,13 +90,13 @@ MonoBehaviour:
   mushroomDescription: After death gives 20 A
   mushroomPriceA: 0
   mushroomPriceB: 1
-  mushroomLifeTime: 60
-  mushroomImprovedLifeTime: 20
+  mushroomLifeTime: 50
+  mushroomImprovedLifeTime: 16
   mushroomEndAddA: 20
-  mushroomImprovedEndAddA: 100
+  mushroomImprovedEndAddA: 50
   druidId: 5
   druidName: Druid
-  druidDescription: Gives 3 slots
+  druidDescription: Gives +3 pentagram
   druidPriceA: 10
   druidPriceB: 1
   druidLifeTime: 200
@@ -107,88 +107,88 @@ MonoBehaviour:
   gluttonName: Glutton
   gluttonDescription: Convert 1 demon to 2 B
   gluttonPriceA: 0
-  gluttonPriceB: 2
-  gluttonLifeTime: 300
-  gluttonImprovedLifeTime: 600
+  gluttonPriceB: 10
+  gluttonLifeTime: 60
+  gluttonImprovedLifeTime: 60
   gluttonConvertAddB: 2
   gluttonImprovedConvertAddB: 4
-  gluttonConvertAddDelay: 10
+  gluttonConvertAddDelay: 12
   snakeId: 7
   snakeName: Snake
   snakeDescription: Increases life time
   snakePriceA: 0
-  snakePriceB: 10
+  snakePriceB: 5
   snakeLifeTime: 60
-  snakeImprovedLifeTime: 120
+  snakeImprovedLifeTime: 300
   snakeMultLifetime: 2
   eyeId: 8
   eyeName: Eye
-  eyeDescription: Gives 3 B when summoned
+  eyeDescription: Gives 5B when summoned
   eyePriceA: 0
-  eyePriceB: 10
-  eyeLifeTime: 30
-  eyeImprovedLifeTime: 100
-  eyeSummonedAddB: 3
+  eyePriceB: 20
+  eyeLifeTime: 120
+  eyeImprovedLifeTime: 450
+  eyeSummonedAddB: 5
   eyeImprovedSummonedAddB: 10
   pteroId: 9
   pteroName: Ptero
   pteroDescription: Gives x2 A
   pteroPriceA: 0
   pteroPriceB: 3
-  pteroLifeTime: 3
-  pteroImprovedLifeTime: 3
+  pteroLifeTime: 2
+  pteroImprovedLifeTime: 2
   pteroMultInstantlyAdd: 2
   pteroImprovedMultInstantlyAdd: 3
   spiderId: 10
   spiderName: Spider
-  spiderDescription: Increase increment B +1
+  spiderDescription: Gives B
   spiderPriceA: 0
-  spiderPriceB: 10
-  spiderLifeTime: 10
-  spiderImprovedLifeTime: 20
+  spiderPriceB: 5
+  spiderLifeTime: 25
+  spiderImprovedLifeTime: 50
   spiderAddB: 1
   spiderImprovedAddB: 2
-  spiderAddDelay: 2
+  spiderAddDelay: 5
   fireId: 11
   fireName: Fire
   fireDescription: Increase increment A/B x2
-  firePriceA: 0
-  firePriceB: 10
-  fireLifeTime: 15
-  fireImprovedLifeTime: 15
+  firePriceA: 15
+  firePriceB: 15
+  fireLifeTime: 100
+  fireImprovedLifeTime: 300
   fireMultAddAB: 2
   fireImprovedMultAddAB: 3
   octopusId: 12
   octopusName: Octopus
-  octopusDescription: Gives 1 A for each demons every 2s
-  octopusPriceA: 20
+  octopusDescription: Gives 2 A for each demons every 4s
+  octopusPriceA: 100
   octopusPriceB: 0
-  octopusLifeTime: 10
-  octopusImprovedLifeTime: 20
-  octopusAddAForEach: 1
-  octopusAddForEachDelay: 2
+  octopusLifeTime: 80
+  octopusImprovedLifeTime: 300
+  octopusAddAForEach: 2
+  octopusAddForEachDelay: 4
   jokerId: 13
   jokerName: Joker
   jokerDescription: Increase chance for improved summon
-  jokerPriceA: 5
-  jokerPriceB: 5
-  jokerLifeTime: 97
-  jokerImprovedLifeTime: 20
+  jokerPriceA: 50
+  jokerPriceB: 0
+  jokerLifeTime: 150
+  jokerImprovedLifeTime: 400
   jokerMultChanceToImprove: 3
   jokerImprovedMultChanceToImprove: 10
   motherCatId: 14
   motherCatName: MotherCat
   motherCatDescription: Spawn cats every 5s
-  motherCatPriceA: 100
+  motherCatPriceA: 30
   motherCatPriceB: 0
   motherCatLifeTime: 300
   motherCatImprovedLifeTime: 1000
   motherCatImprovedChanceToImprove: 50
-  motherCatSummonDelay: 5
+  motherCatSummonDelay: 6
   dragonId: 15
   dragonName: Dragon
   dragonDescription: You win
-  dragonPriceA: 10
-  dragonPriceB: 0
+  dragonPriceA: 200
+  dragonPriceB: 50
   dragonLifeTime: 0
   dragonImprovedLifeTime: 0

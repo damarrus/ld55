@@ -17,6 +17,8 @@ public class Slot : MonoBehaviour
     public int paramInt = 0;
     public List<int> paramListInt = new List<int>();
 
+    public List<GameObject> prefabList;
+
     void Start()
     {
         
@@ -31,9 +33,10 @@ public class Slot : MonoBehaviour
     public void setActive(bool act)
     {
         active = act;
-        var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
-        var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
-        var pentagramTextComponent = transform.Find("Pentagram").GetComponent<TMP_Text>();
+        var canvas = transform.Find("Canvas");
+        var nameTextComponent = canvas.Find("RecipeName").GetComponent<TMP_Text>();
+        var lifeTimeTextComponent = canvas.Find("LifeTime").GetComponent<TMP_Text>();
+        var pentagramTextComponent = canvas.Find("Pentagram").GetComponent<TMP_Text>();
 
         if (!active)
         {
@@ -58,8 +61,9 @@ public class Slot : MonoBehaviour
 
     public void setRecipe(Recipe rec, int improvedChance = -1)
     {
-        var nameTextComponent = transform.Find("RecipeName").GetComponent<TMP_Text>();
-        var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
+        var canvas = transform.Find("Canvas");
+        var nameTextComponent = canvas.Find("RecipeName").GetComponent<TMP_Text>();
+        var lifeTimeTextComponent = canvas.Find("LifeTime").GetComponent<TMP_Text>();
 
         if (rec != null )
         {
@@ -76,6 +80,12 @@ public class Slot : MonoBehaviour
             lifeTimeTextComponent.text = lifeTimeLeft.ToString();
             ltCoroutine = StartCoroutine(lifeTimeCoroutine());
             recipe = rec;
+
+            for (int i = 0; i < prefabList.Count; i++)
+            {
+                prefabList[i].SetActive(i == rec.id - 1);
+            }
+
             rec.startAction(this);
         } else
         {
@@ -93,6 +103,11 @@ public class Slot : MonoBehaviour
             }
             lifeTimeLeft = 0;
             lifeTimeMax = 0;
+
+            for (int i = 0; i < prefabList.Count; i++)
+            {
+                prefabList[i].SetActive(false);
+            }
         }
     }
 
@@ -105,7 +120,8 @@ public class Slot : MonoBehaviour
     
     public void updateLifeTimeLeft()
     {
-        var lifeTimeTextComponent = transform.Find("LifeTime").GetComponent<TMP_Text>();
+        var canvas = transform.Find("Canvas");
+        var lifeTimeTextComponent = canvas.Find("LifeTime").GetComponent<TMP_Text>();
         lifeTimeTextComponent.text = lifeTimeLeft.ToString();
     }
 

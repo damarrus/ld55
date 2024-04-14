@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1868590459636698719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1868590459636698713}
+  - component: {fileID: 1868590459636698712}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1868590459636698713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868590459636698719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 530.6432, y: 275.3939, z: -115.99895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1868590459636698712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868590459636698719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a33e51881f382e4ab9b2b7de681ebfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Currency1Component: {fileID: 0}
+  Currency2Component: {fileID: 0}
+  recipesContainer: {fileID: 0}
+  slotsContainer: {fileID: 0}
+  recipePrefab: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+  slotPrefab: {fileID: 4543251669645451873, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
+  improveChance: 5
+  currencyABaseMax: 20
+  currencyBBaseMax: 10
+  startSlotCount: 4
+  baseImproveChance: 5
+  catId: 1
+  catName: Cat
+  catDescription: Increase increment A +2
+  catPriceA: 3
+  catPriceB: 0
+  catLifeTime: 10
+  catImprovedLifeTime: 30
+  catAddA: 1
+  catImprovedAddA: 3
+  catAddDelay: 2
+  greedId: 2
+  greedName: Greed
+  greedDescription: Increase max A/B x2
+  greedPriceA: 8
+  greedPriceB: 0
+  greedLifeTime: 120
+  greedImprovedLifeTime: 300
+  greedMultMaxA: 2
+  greedImprovedMultMaxA: 3
+  traderId: 3
+  traderName: Trader
+  traderDescription: Convert 5 A to 1 B
+  traderPriceA: 10
+  traderPriceB: 0
+  traderLifeTime: 30
+  traderImprovedLifeTime: 60
+  traderRateA: 5
+  traderRateB: 1
+  traderImprovedRateA: 8
+  traderImprovedRateB: 2
+  traderConvertDelay: 3
+  mushroomId: 4
+  mushroomName: Mushroom
+  mushroomDescription: After death gives 20 A
+  mushroomPriceA: 0
+  mushroomPriceB: 1
+  mushroomLifeTime: 60
+  mushroomImprovedLifeTime: 20
+  mushroomEndAddA: 20
+  mushroomImprovedEndAddA: 100
+  druidId: 5
+  druidName: Druid
+  druidDescription: Gives 3 slots
+  druidPriceA: 10
+  druidPriceB: 1
+  druidLifeTime: 200
+  druidImprovedLifeTime: 500
+  druidAddSlots: 3
+  druidImprovedAddSlots: 5
+  gluttonId: 6
+  gluttonName: Glutton
+  gluttonDescription: Convert 1 demon to 2 B
+  gluttonPriceA: 0
+  gluttonPriceB: 2
+  gluttonLifeTime: 300
+  gluttonImprovedLifeTime: 600
+  gluttonConvertAddB: 2
+  gluttonImprovedConvertAddB: 4
+  gluttonConvertAddDelay: 10
+  snakeId: 7
+  snakeName: Snake
+  snakeDescription: Increases life time
+  snakePriceA: 0
+  snakePriceB: 10
+  snakeLifeTime: 60
+  snakeImprovedLifeTime: 120
+  snakeMultLifetime: 2
+  eyeId: 8
+  eyeName: Eye
+  eyeDescription: Gives 3 B when summoned
+  eyePriceA: 0
+  eyePriceB: 10
+  eyeLifeTime: 30
+  eyeImprovedLifeTime: 100
+  eyeSummonedAddB: 3
+  eyeImprovedSummonedAddB: 10
+  pteroId: 9
+  pteroName: Ptero
+  pteroDescription: Gives x2 A
+  pteroPriceA: 0
+  pteroPriceB: 3
+  pteroLifeTime: 3
+  pteroImprovedLifeTime: 3
+  pteroMultInstantlyAdd: 2
+  pteroImprovedMultInstantlyAdd: 3
+  spiderId: 10
+  spiderName: Spider
+  spiderDescription: Increase increment B +1
+  spiderPriceA: 0
+  spiderPriceB: 10
+  spiderLifeTime: 10
+  spiderImprovedLifeTime: 20
+  spiderAddB: 1
+  spiderImprovedAddB: 2
+  spiderAddDelay: 2
+  fireId: 11
+  fireName: Fire
+  fireDescription: Increase increment A/B x2
+  firePriceA: 0
+  firePriceB: 10
+  fireLifeTime: 15
+  fireImprovedLifeTime: 15
+  fireMultAddAB: 2
+  fireImprovedMultAddAB: 3
+  octopusId: 12
+  octopusName: Octopus
+  octopusDescription: Gives 1 A for each demons every 2s
+  octopusPriceA: 20
+  octopusPriceB: 0
+  octopusLifeTime: 10
+  octopusImprovedLifeTime: 20
+  octopusAddAForEach: 1
+  octopusAddForEachDelay: 2
+  jokerId: 13
+  jokerName: Joker
+  jokerDescription: Increase chance for improved summon
+  jokerPriceA: 5
+  jokerPriceB: 5
+  jokerLifeTime: 97
+  jokerImprovedLifeTime: 20
+  jokerMultChanceToImprove: 3
+  jokerImprovedMultChanceToImprove: 10
+  motherCatId: 14
+  motherCatName: MotherCat
+  motherCatDescription: Spawn cats every 5s
+  motherCatPriceA: 100
+  motherCatPriceB: 0
+  motherCatLifeTime: 300
+  motherCatImprovedLifeTime: 1000
+  motherCatImprovedChanceToImprove: 50
+  motherCatSummonDelay: 5
+  dragonId: 15
+  dragonName: Dragon
+  dragonDescription: You win
+  dragonPriceA: 10
+  dragonPriceB: 0
+  dragonLifeTime: 0
+  dragonImprovedLifeTime: 0

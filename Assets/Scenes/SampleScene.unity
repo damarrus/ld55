@@ -1517,13 +1517,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 52
       objectReference: {fileID: 0}
+    - target: {fileID: 1137582231700947970, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -38
+      objectReference: {fileID: 0}
     - target: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
       propertyPath: m_Name
       value: RecipePrefab15
       objectReference: {fileID: 0}
     - target: {fileID: 3724429849972526677, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 725.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724429849972526677, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 290.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724429849972526677, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -135.3
+      value: -156.9
       objectReference: {fileID: 0}
     - target: {fileID: 3885808195449952266, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
       propertyPath: m_IsActive
@@ -1532,6 +1544,22 @@ PrefabInstance:
     - target: {fileID: 4475784112009450533, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732593871467828960, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 660.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732593871467828960, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732593871467828960, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732593871467828960, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 89
       objectReference: {fileID: 0}
     - target: {fileID: 5538419995660193140, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
       propertyPath: m_hasFontAssetChanged

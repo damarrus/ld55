@@ -36,6 +36,9 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     GameObject Icon = null;
 
+    Coroutine toolTipCoroutine = null;
+
+
     public void Pay()
     {
         gameController.PayRecipe(this);
@@ -136,13 +139,17 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (!revealed) return;
 
-        var tooltipObject = transform.Find("Tooltip").gameObject;
-        tooltipObject.SetActive(true);
+        toolTipCoroutine = StartCoroutine(showToolTip());
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (!revealed) return;
+
+        if (toolTipCoroutine != null)
+        {
+            StopCoroutine(toolTipCoroutine);
+        }
 
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
@@ -155,6 +162,13 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = nameText;
         tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = descriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(lifeTime * realLifeTimeMult).ToString();
+    }
+
+    IEnumerator showToolTip()
+    {
+        yield return new WaitForSeconds(0.5f);
+        var tooltipObject = transform.Find("Tooltip").gameObject;
+        tooltipObject.SetActive(true);
     }
 
 }

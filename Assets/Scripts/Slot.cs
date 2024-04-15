@@ -29,6 +29,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject flamesBlack;
     public GameObject destroyFlames;
     public GameObject primePrefab;
+
+    Coroutine toolTipCoroutine = null;
     private void Start()
     {
         foreach (var item in GetComponentsInChildren<Canvas>())
@@ -260,16 +262,27 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    IEnumerator showToolTip()
     {
-        if (recipe == null) return;
-        
+        yield return new WaitForSeconds(0.5f);
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (recipe == null) return;
+
+        toolTipCoroutine = StartCoroutine(showToolTip());
+    }
+
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (toolTipCoroutine != null)
+        {
+            StopCoroutine(toolTipCoroutine);
+        }
+
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
     }

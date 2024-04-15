@@ -159,6 +159,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
             var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
             tooltipObject.SetActive(false);
+            gameController.setHasEmptySlot();
         }
     }
     

@@ -34,6 +34,8 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public bool revealed = false;
     public bool available = false;
 
+    GameObject Icon = null;
+
     public void Pay()
     {
         gameController.PayRecipe(this);
@@ -64,13 +66,26 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         for (int i = 0; i < iconsList.Count; i++)
         {
             iconsList[i].SetActive((i == id - 1) && revealed);
+            if ((i == id - 1) && revealed)
+            {
+                Icon = iconsList[i];
+            }
         }
         for (int i = 0; i < iconsUnknownList.Count; i++)
         {
             iconsUnknownList[i].SetActive((i == id - 1) && !revealed);
+            if ((i == id - 1) && !revealed)
+            {
+                Icon = iconsList[i];
+            }
         }
 
         CheckAndSetAvailable(gameController.currencyA, gameController.currencyB);
+    }
+
+    public void setHasEmptySlot(bool hasEmptySlot)
+    {
+        Icon.GetComponent<SpriteRenderer>().color = hasEmptySlot ? Color.white : new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
     }
 
     public void CheckAndSetAvailable(int cur1, int cur2)
@@ -79,8 +94,6 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (newAvailable != available)
         {
-            
-
             available = newAvailable;
         }
 

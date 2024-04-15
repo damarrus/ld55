@@ -390,7 +390,9 @@ public class GameController : MonoBehaviour
             {
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
-                    var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+                    var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null && (s.recipe.id == 1 || s.recipe.id == 4));
+                    if (filteredSlots.Count == 0) filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
+
                     if (filteredSlots.Count > 0)
                     {
                         System.Random random = new System.Random();
@@ -586,6 +588,7 @@ public class GameController : MonoBehaviour
             {
                 recipes.Find(r => r.id == revealedRecipeId).SetRevealed(true);
             }
+            setHasEmptySlot();
         }
     }
 
@@ -748,6 +751,28 @@ public class GameController : MonoBehaviour
         }
 
         return false;
+    }
+
+    bool HasEmptySlot()
+    {
+        foreach (Slot slot in slots)
+        {
+            if (slot.active && slot.recipe == null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void setHasEmptySlot()
+    {
+        var hasEmptySlot = HasEmptySlot();
+        foreach (Recipe recipe in recipes)
+        {
+            recipe.setHasEmptySlot(hasEmptySlot);
+        }
     }
 
     public static IEnumerator Do(Action action, int time)

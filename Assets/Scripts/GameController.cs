@@ -389,7 +389,7 @@ public class GameController : MonoBehaviour
                 var slotsCount = slot.isImproved ? druidImprovedAddSlots : druidAddSlots;
                 for (int i = 1; i <= slotsCount; i++)
                 {
-                    var blockedSlot = GetFirstBlockedSlot();
+                    var blockedSlot = GetRandomBlockedSlot();
                     if (blockedSlot == null) break;
 
                     blockedSlot.setActive(true);
@@ -802,6 +802,23 @@ public class GameController : MonoBehaviour
         }
 
         return null;
+    }
+
+    Slot GetRandomBlockedSlot()
+    {
+        var filteredSlots = slots.FindAll(slot => !slot.active && slot.recipe != null);
+        if (filteredSlots.Count == 0)
+        {
+            filteredSlots = slots.FindAll(slot => !slot.active);
+            if (filteredSlots.Count == 0)
+            {
+                return null;
+            }
+        }
+
+        System.Random random = new System.Random();
+        int randomIndex = random.Next(0, filteredSlots.Count);
+        return filteredSlots[randomIndex];
     }
 
     bool HasFilledSlot()

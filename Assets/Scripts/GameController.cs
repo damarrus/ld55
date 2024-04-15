@@ -296,6 +296,11 @@ public class GameController : MonoBehaviour
     {
         StartCoroutine(fadeOutCoroutine());
         audioSource.mute = GameController.isMute;
+        audioCoin.mute = GameController.isMute;
+        audioCrystall.mute = GameController.isMute;
+        audioSummon.mute = GameController.isMute;
+        audioImprovedSummon.mute = GameController.isMute;
+        audioDeath.mute = GameController.isMute;
         muteButton.SetActive(!GameController.isMute);
         unmuteButton.SetActive(GameController.isMute);
 
@@ -891,12 +896,22 @@ public class GameController : MonoBehaviour
         if (audioSource.mute)
         {
             GameController.isMute = false;
+            audioCoin.mute = GameController.isMute;
+            audioCrystall.mute = GameController.isMute;
+            audioSummon.mute = GameController.isMute;
+            audioImprovedSummon.mute = GameController.isMute;
+            audioDeath.mute = GameController.isMute;
             audioSource.mute = false;
             muteButton.SetActive(true);
             unmuteButton.SetActive(false);
         } else
         {
             GameController.isMute = true;
+            audioCoin.mute = GameController.isMute;
+            audioCrystall.mute = GameController.isMute;
+            audioSummon.mute = GameController.isMute;
+            audioImprovedSummon.mute = GameController.isMute;
+            audioDeath.mute = GameController.isMute;
             audioSource.mute = true;
             muteButton.SetActive(false);
             unmuteButton.SetActive(true);
@@ -913,13 +928,6 @@ public class GameController : MonoBehaviour
         }
         return minutes + ":" + seconds;
     }
-
-
-    //public AudioSource audioCoin;
-    //public AudioSource audioCrystall;
-    //public AudioSource audioSummon;
-    //public AudioSource audioImprovedSummon;
-    //public AudioSource audioDeath;
 
     public void playSoundCoin()
     {

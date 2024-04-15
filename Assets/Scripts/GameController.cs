@@ -289,10 +289,7 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            UpdateCurrency(9999, 9999);
-        }
+
     }
 
     void Start()

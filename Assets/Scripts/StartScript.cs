@@ -12,13 +12,23 @@ public class StartScript : MonoBehaviour
     public GameObject unmuteButton;
     public AudioSource audioSource;
 
+    static bool firstStart = true;
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource.mute = GameController.isMute;
         muteButton.SetActive(!GameController.isMute);
         unmuteButton.SetActive(GameController.isMute);
-        StartCoroutine(fadeOutCoroutine());
+        if (firstStart)
+        {
+            fadeOutObject.SetActive(false);
+            firstStart = false;
+        } else
+        {
+            StartCoroutine(fadeOutCoroutine());
+        }
+        
     }
 
     // Update is called once per frame

@@ -154,7 +154,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = nameText;
-        tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = descriptionText + "\n\r" + "Lifetime: " + (lifeTime * realLifeTimeMult).ToString();
+        tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = descriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(lifeTime * realLifeTimeMult).ToString();
     }
 
 }

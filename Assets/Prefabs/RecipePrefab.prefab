@@ -848,6 +848,7 @@ MonoBehaviour:
   id: 0
   nameText: 
   descriptionText: 
+  improvedNameText: 
   improvedDescriptionText: 
   currencyA: 0
   currencyB: 0

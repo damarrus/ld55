@@ -284,8 +284,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             : 1;
 
         tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = isImproved
-            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + (recipe.improvedLifeTime * realLifeTimeMult).ToString()
-            : recipe.descriptionText + "\n\r" + "Lifetime: " + (recipe.lifeTime * realLifeTimeMult).ToString();
+            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(recipe.improvedLifeTime * realLifeTimeMult).ToString()
+            : recipe.descriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(recipe.lifeTime * realLifeTimeMult).ToString();
 
         if (recipe.id == 4)
         {

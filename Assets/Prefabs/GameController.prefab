@@ -63,9 +63,10 @@ MonoBehaviour:
   startSlotCount: 4
   baseImproveChance: 7
   catId: 1
-  catName: Cat
-  catDescription: Increase increment A +2
-  catImprovedDescription: Increase increment A +2
+  catName: Imp Spirit
+  catDescription: Periodically gives 1 <sprite=0>
+  catImprovedName: Elder Soul
+  catImprovedDescription: Lives longer and gives 3 <sprite=0>
   catPriceA: 3
   catPriceB: 0
   catLifeTime: 12
@@ -74,9 +75,11 @@ MonoBehaviour:
   catImprovedAddA: 3
   catAddDelay: 2
   greedId: 2
-  greedName: Greed
-  greedDescription: Increase max A/B x2
-  greedImprovedDescription: Increase max A/B x2
+  greedName: Greedo
+  greedDescription: Increases the maximum of <sprite=0> and <sprite=1> (x2)
+  greedImprovedName: Elder Greedo
+  greedImprovedDescription: Greatly increases the maximum of <sprite=0> and <sprite=1>
+    (x3)
   greedPriceA: 10
   greedPriceB: 10
   greedLifeTime: 300
@@ -84,9 +87,10 @@ MonoBehaviour:
   greedMultMaxA: 2
   greedImprovedMultMaxA: 3
   traderId: 3
-  traderName: Trader
-  traderDescription: Convert 5 A to 2 B
-  traderImprovedDescription: Convert 10 A to 1 B
+  traderName: Coinflipper
+  traderDescription: Converts 5 <sprite=0> to 1 <sprite=1>
+  traderImprovedName: Flameflopper
+  traderImprovedDescription: Converts 5 <sprite=0> to 2 <sprite=1>
   traderPriceA: 8
   traderPriceB: 0
   traderLifeTime: 20
@@ -97,9 +101,10 @@ MonoBehaviour:
   traderImprovedRateB: 2
   traderConvertDelay: 4
   mushroomId: 4
-  mushroomName: Mushroom
-  mushroomDescription: After death gives 20 A
-  mushroomImprovedDescription: After death gives 10 A
+  mushroomName: Creep
+  mushroomDescription: Gives 15 <sprite=0> when dies
+  mushroomImprovedName: Hot Creep
+  mushroomImprovedDescription: Gives 5 <sprite=1> when dies
   mushroomPriceA: 0
   mushroomPriceB: 1
   mushroomLifeTime: 30
@@ -109,9 +114,10 @@ MonoBehaviour:
   mushroomImprovedEndAddA: 0
   mushroomImprovedEndAddB: 5
   druidId: 5
-  druidName: Druid
-  druidDescription: Gives +3 pentagram
-  druidImprovedDescription: Gives 3 slots
+  druidName: Summon Sage
+  druidDescription: While alive, +3 summoning slots
+  druidImprovedName: 'Druid of the Pentagram '
+  druidImprovedDescription: While alive, +5 summoning slots
   druidPriceA: 10
   druidPriceB: 1
   druidLifeTime: 200
@@ -119,20 +125,22 @@ MonoBehaviour:
   druidAddSlots: 3
   druidImprovedAddSlots: 5
   gluttonId: 6
-  gluttonName: Glutton
-  gluttonDescription: Convert 1 demon to 2 B
-  gluttonImprovedDescription: Convert 1 demon to 1 B
+  gluttonName: Hungry Imp
+  gluttonDescription: Every 10 seconds eats another Imp and gives you 2 <sprite=1>
+  gluttonImprovedName: Glutton Devil
+  gluttonImprovedDescription: Every 10 seconds eats another Imp and gives you 4 <sprite=1>
   gluttonPriceA: 0
   gluttonPriceB: 10
   gluttonLifeTime: 60
   gluttonImprovedLifeTime: 60
   gluttonConvertAddB: 2
   gluttonImprovedConvertAddB: 4
-  gluttonConvertAddDelay: 12
+  gluttonConvertAddDelay: 10
   snakeId: 7
-  snakeName: Snake
-  snakeDescription: Increases life time
-  snakeImprovedDescription: Increases life time
+  snakeName: Longnecker
+  snakeDescription: Increases other imps lifetime (x2)
+  snakeImprovedName: Lo-o-o-o-ngnecker
+  snakeImprovedDescription: Greatly increases other imps lifetime (x3)
   snakePriceA: 0
   snakePriceB: 5
   snakeLifeTime: 60
@@ -140,9 +148,10 @@ MonoBehaviour:
   snakeMultLifetime: 2
   snakeImprovedMultLifetime: 3
   eyeId: 8
-  eyeName: Eye
-  eyeDescription: Gives 5B when summoned
-  eyeImprovedDescription: Gives 1 B when summoned
+  eyeName: Imp Looker
+  eyeDescription: When other imp is summoned gives you 5 <sprite=1>
+  eyeImprovedName: Devil Watcher
+  eyeImprovedDescription: When other imp is summoned gives you 10 <sprite=1>
   eyePriceA: 0
   eyePriceB: 20
   eyeLifeTime: 120
@@ -150,9 +159,10 @@ MonoBehaviour:
   eyeSummonedAddB: 5
   eyeImprovedSummonedAddB: 10
   pteroId: 9
-  pteroName: Ptero
-  pteroDescription: Gives x2 A
-  pteroImprovedDescription: Gives x2 A
+  pteroName: Fiend
+  pteroDescription: Multiplies the amount of <sprite=0> (x2)
+  pteroImprovedName: Foul Fiend
+  pteroImprovedDescription: Multiplies the amount of <sprite=0> (x3)
   pteroPriceA: 0
   pteroPriceB: 5
   pteroLifeTime: 2
@@ -160,9 +170,10 @@ MonoBehaviour:
   pteroMultInstantlyAdd: 2
   pteroImprovedMultInstantlyAdd: 3
   spiderId: 10
-  spiderName: Spider
-  spiderDescription: Gives B
-  spiderImprovedDescription: Increase increment B +1
+  spiderName: Hell Spider
+  spiderDescription: Gives 1 <sprite=1> every 5 seconds
+  spiderImprovedName: Flame Weaver
+  spiderImprovedDescription: Gives 2 <sprite=1> every 5 seconds
   spiderPriceA: 0
   spiderPriceB: 5
   spiderLifeTime: 25
@@ -171,9 +182,11 @@ MonoBehaviour:
   spiderImprovedAddB: 2
   spiderAddDelay: 5
   fireId: 11
-  fireName: Fire
-  fireDescription: Increase increment A/B x2
-  fireImprovedDescription: Increase increment A/B x2
+  fireName: Flame Ifrit
+  fireDescription: Increases the production of <sprite=0> and <sprite=1> (x2)
+  fireImprovedName: Infernos
+  fireImprovedDescription: Greatly increases the production of <sprite=0> and <sprite=1>
+    (x3)
   firePriceA: 15
   firePriceB: 15
   fireLifeTime: 100
@@ -181,9 +194,11 @@ MonoBehaviour:
   fireMultAddAB: 2
   fireImprovedMultAddAB: 3
   octopusId: 12
-  octopusName: Octopus
-  octopusDescription: Gives 2 A for each demons every 4s
-  octopusImprovedDescription: Gives 1 A for each demons every 2s
+  octopusName: Hound of Tails
+  octopusDescription: Periodically gives 2 <sprite=0> for each other alive imp
+  octopusImprovedName: Servant of Many
+  octopusImprovedDescription: Periodically gives 4 <sprite=0> for each other alive
+    imp
   octopusPriceA: 100
   octopusPriceB: 0
   octopusLifeTime: 80
@@ -191,9 +206,10 @@ MonoBehaviour:
   octopusAddAForEach: 2
   octopusAddForEachDelay: 4
   jokerId: 13
-  jokerName: Joker
-  jokerDescription: Increase chance for improved summon
-  jokerImprovedDescription: Increase chance for improved summon
+  jokerName: Lucky BUB
+  jokerDescription: Raises the chances of PRIME SUMMON
+  jokerImprovedName: Cheater BOB
+  jokerImprovedDescription: Garanties PRIME SUMMONS
   jokerPriceA: 50
   jokerPriceB: 0
   jokerLifeTime: 150
@@ -201,9 +217,10 @@ MonoBehaviour:
   jokerMultChanceToImprove: 4
   jokerImprovedMultChanceToImprove: 15
   motherCatId: 14
-  motherCatName: MotherCat
-  motherCatDescription: Spawn cats every 5s
-  motherCatImrpovedDescription: Spawn cats every 5s
+  motherCatName: Spirit Cat
+  motherCatDescription: Periodically summons Imp Spirits
+  motherCatImprovedName: Ocelot of Souls
+  motherCatImrpovedDescription: Summons Imp Spirits and Elder Spirits
   motherCatPriceA: 30
   motherCatPriceB: 0
   motherCatLifeTime: 300
@@ -211,10 +228,11 @@ MonoBehaviour:
   motherCatImprovedChanceToImprove: 50
   motherCatSummonDelay: 6
   dragonId: 15
-  dragonName: Dragon
-  dragonDescription: You win
-  dragonImprovedDescription: You win
+  dragonName: Faina of the Ruined Flame
+  dragonDescription: The goal of the game is to summon her!
+  dragonImprovedName: Faina of the Ruined Flame
+  dragonImprovedDescription: The goal of the game is to summon her!
   dragonPriceA: 200
   dragonPriceB: 50
-  dragonLifeTime: 0
-  dragonImprovedLifeTime: 0
+  dragonLifeTime: 999999
+  dragonImprovedLifeTime: 999999

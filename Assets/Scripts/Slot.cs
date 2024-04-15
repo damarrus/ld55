@@ -99,7 +99,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 isImproved = true;
                 rec.improvedAction(this);
-                nameTextComponent.color = Color.green;
+                nameTextComponent.color = new Color(188f/255f, 42f/255f, 39f/255f, 1f);
             }
 
             lifeTimeLeft = isImproved ? rec.improvedLifeTime : rec.lifeTime;
@@ -120,7 +120,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     if (isImproved)
                     {
                         flamesRed.SetActive(true);
-                        GameObject prime = Instantiate(primePrefab, new Vector3(-2f, 0f, 0f), Quaternion.identity );
+                        GameObject prime = Instantiate(primePrefab, new Vector3(-3f, 0.25f, 0f), Quaternion.identity );
                         Destroy(prime, 0.75f);
                     }
                     else
@@ -277,7 +277,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void InitTooltip()
     {
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = isImproved ? recipe.improvedNameText : recipe.nameText;
-        if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.green;
+        if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = new Color(188f/255f, 42f/255f, 39f/255f, 1f);
 
         var realLifeTimeMult = recipe.id == 7
             ? isImproved ? gameController.snakeImprovedMultLifetime : gameController.snakeMultLifetime

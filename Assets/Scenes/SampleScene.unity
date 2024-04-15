@@ -5135,6 +5135,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
+      propertyPath: currencyA
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868590459636698712, guid: 77ffa71af23478145a6638f99e0965b6, type: 3}
       propertyPath: musicClip
       value: 
       objectReference: {fileID: 8300000, guid: b642dbc591c90e6439ddae185fea3e33, type: 3}

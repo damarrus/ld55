@@ -584,6 +584,8 @@ public class GameController : MonoBehaviour
             slots.Add(slot);
         }
 
+        UpdateCurrencyText();
+
     }
 
     public void PayRecipe(Recipe recipe)

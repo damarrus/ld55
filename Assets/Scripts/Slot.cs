@@ -95,13 +95,19 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
-            improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
-            
-            if (Random.Range(0, 100) < improvedChance)
+            if (gameController.isFirst)
             {
-                isImproved = true;
-                rec.improvedAction(this);
-                nameTextComponent.color = new Color(188f/255f, 42f/255f, 39f/255f, 1f);
+                gameController.isFirst = false;
+            } else
+            {
+                improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
+
+                if (Random.Range(0, 100) < improvedChance)
+                {
+                    isImproved = true;
+                    rec.improvedAction(this);
+                    nameTextComponent.color = new Color(188f / 255f, 42f / 255f, 39f / 255f, 1f);
+                }
             }
 
             lifeTimeLeft = isImproved ? rec.improvedLifeTime : rec.lifeTime;

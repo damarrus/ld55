@@ -12,6 +12,12 @@ public class StartScript : MonoBehaviour
     public GameObject unmuteButton;
     public AudioSource audioSource;
 
+    public GameObject blackImage;
+    public GameObject cat1;
+    public GameObject cat2;
+    public GameObject cat3;
+    public GameObject cat4;
+
     static bool firstStart = true;
 
     // Start is called before the first frame update
@@ -20,14 +26,15 @@ public class StartScript : MonoBehaviour
         audioSource.mute = GameController.isMute;
         muteButton.SetActive(!GameController.isMute);
         unmuteButton.SetActive(GameController.isMute);
-        if (firstStart)
-        {
-            fadeOutObject.SetActive(false);
-            firstStart = false;
-        } else
-        {
-            StartCoroutine(fadeOutCoroutine());
-        }
+        StartCoroutine(fadeOutCoroutine());
+        //if (firstStart)
+        //{
+        //    fadeOutObject.SetActive(false);
+        //    firstStart = false;
+        //} else
+        //{
+        //    StartCoroutine(fadeOutCoroutine());
+        //}
         
     }
 
@@ -51,6 +58,19 @@ public class StartScript : MonoBehaviour
 
     IEnumerator fadeOutCoroutine()
     {
+        fadeOutObject.SetActive(false);
+
+        yield return new WaitForSeconds(0.25f);
+        cat1.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        cat2.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        cat3.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        cat4.SetActive(true);
+
+        fadeOutObject.SetActive(true);
+        blackImage.SetActive(false);
         yield return new WaitForSeconds(1f);
         fadeOutObject.SetActive(false);
     }

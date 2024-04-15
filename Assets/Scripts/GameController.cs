@@ -10,6 +10,8 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public static bool isMute = false;
+
     public GameObject pauseButton;
     public GameObject playButton;
     public GameObject muteButton;
@@ -289,7 +291,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         StartCoroutine(fadeOutCoroutine());
-        audioSource.Play();
+        audioSource.mute = GameController.isMute;
+        muteButton.SetActive(!GameController.isMute);
+        unmuteButton.SetActive(GameController.isMute);
 
         improveChance = baseImproveChance;
         InitConfig();
@@ -848,11 +852,13 @@ public class GameController : MonoBehaviour
     {
         if (audioSource.mute)
         {
+            GameController.isMute = false;
             audioSource.mute = false;
             muteButton.SetActive(true);
             unmuteButton.SetActive(false);
         } else
         {
+            GameController.isMute = true;
             audioSource.mute = true;
             muteButton.SetActive(false);
             unmuteButton.SetActive(true);

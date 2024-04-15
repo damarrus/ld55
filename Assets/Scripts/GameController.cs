@@ -698,12 +698,18 @@ public class GameController : MonoBehaviour
     {
         while (true)
         {
-            if (!HasFilledSlot() && currencyA < 3) {
+            if ((!HasFilledSlot() || !HasSlotByRecipeId(1)) && currencyA < 3 ) {
                 UpdateCurrency(1, 0, false);
             }
             
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    bool HasSlotByRecipeId(int recipeId)
+    {
+        var res = slots.Find(slot => slot.recipe != null && slot.recipe.id == recipeId);
+        return res != null;
     }
 
     Slot GetFirstActiveEmptySlot()

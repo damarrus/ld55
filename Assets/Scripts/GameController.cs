@@ -27,6 +27,12 @@ public class GameController : MonoBehaviour
     public Animation fadeInAnimation;
     public GameObject fadeOutObject;
 
+    public AudioSource audioCoin;
+    public AudioSource audioCrystall;
+    public AudioSource audioSummon;
+    public AudioSource audioImprovedSummon;
+    public AudioSource audioDeath;
+
     public int improveChance = 0;
 
     public int currencyA = 0;
@@ -638,6 +644,9 @@ public class GameController : MonoBehaviour
 
     public (int,int) UpdateCurrency(int deltaCurrencyA, int deltaCurrencyB, bool needMult = true)
     {
+        if (deltaCurrencyA > 0) playSoundCoin();
+        if (deltaCurrencyB > 0) playSoundCrystall();
+
         var deltaCurrencyAMulted = needMult ? deltaCurrencyA * currencyAMult : deltaCurrencyA;
         var deltaCurrencyBMulted = needMult ? deltaCurrencyB * currencyBMult : deltaCurrencyB;
 
@@ -907,4 +916,51 @@ public class GameController : MonoBehaviour
         return minutes + ":" + seconds;
     }
 
+
+    //public AudioSource audioCoin;
+    //public AudioSource audioCrystall;
+    //public AudioSource audioSummon;
+    //public AudioSource audioImprovedSummon;
+    //public AudioSource audioDeath;
+
+    public void playSoundCoin()
+    {
+        if (audioCoin != null)
+        {
+            audioCoin.Play();
+        }
+        
+    }
+
+    public void playSoundCrystall()
+    {
+        if (audioCrystall != null)
+        {
+            audioCrystall.Play();
+        }
+    }
+
+    public void playSoundSummon()
+    {
+        if (audioSummon != null)
+        {
+            audioSummon.Play();
+        }
+    }
+
+    public void playSoundImprovedSummon()
+    {
+        if (audioImprovedSummon != null)
+        {
+            audioImprovedSummon.Play();
+        }
+    }
+
+    public void playSoundDeath()
+    {
+        if (audioDeath != null)
+        {
+            audioDeath.Play();
+        }
+    }
 }

@@ -29,6 +29,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject flamesBlack;
     public GameObject destroyFlames;
     public GameObject primePrefab;
+
+    Coroutine toolTipCoroutine = null;
     private void Start()
     {
         foreach (var item in GetComponentsInChildren<Canvas>())
@@ -137,8 +139,17 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             rec.startAction(this);
             InitTooltip();
+            if (isImproved)
+            {
+                gameController.playSoundImprovedSummon();
+            } else
+            {
+                gameController.playSoundSummon();
+            }
         } else
         {
+            if (recipe != null) gameController.playSoundDeath();
+
             nameTextComponent.text = "Empty";
             nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";
@@ -260,16 +271,27 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    IEnumerator showToolTip()
     {
-        if (recipe == null) return;
-        
+        yield return new WaitForSeconds(0.5f);
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (recipe == null) return;
+
+        toolTipCoroutine = StartCoroutine(showToolTip());
+    }
+
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (toolTipCoroutine != null)
+        {
+            StopCoroutine(toolTipCoroutine);
+        }
+
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(false);
     }
@@ -277,15 +299,22 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void InitTooltip()
     {
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = isImproved ? recipe.improvedNameText : recipe.nameText;
-        if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = new Color(188f/255f, 42f/255f, 39f/255f, 1f);
+        if (isImproved)
+        {
+            tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = new Color(188f / 255f, 42f / 255f, 39f / 255f, 1f);
+        }
+        else
+        {
+            tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.black;
+        }
 
         var realLifeTimeMult = recipe.id == 7
             ? isImproved ? gameController.snakeImprovedMultLifetime : gameController.snakeMultLifetime
             : 1;
 
         tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = isImproved
-            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + (recipe.improvedLifeTime * realLifeTimeMult).ToString()
-            : recipe.descriptionText + "\n\r" + "Lifetime: " + (recipe.lifeTime * realLifeTimeMult).ToString();
+            ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(recipe.improvedLifeTime * realLifeTimeMult).ToString()
+            : recipe.descriptionText + "\n\r" + "Lifetime: " + gameController.makeTimeString(recipe.lifeTime * realLifeTimeMult).ToString();
 
         if (recipe.id == 4)
         {

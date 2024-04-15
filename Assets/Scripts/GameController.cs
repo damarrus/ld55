@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     
     int maxSlotCount = 12;
     public int globalLifetimeMultiplier = 1;
+    public bool isFirst = true;
 
     Dictionary<int, int> RecipesOrder { get; set; }
     Dictionary<int, List<int>> RecipesReveal { get; set; }

@@ -276,7 +276,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void InitTooltip()
     {
-        tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = recipe.nameText;
+        tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = isImproved ? recipe.improvedNameText : recipe.nameText;
         if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.green;
 
         var realLifeTimeMult = recipe.id == 7

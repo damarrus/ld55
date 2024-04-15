@@ -617,7 +617,8 @@ public class GameController : MonoBehaviour
             StartCoroutine(fadeInCoroutine());
             return;
         }
-        var slot = GetFirstActiveEmptySlot();
+        
+        var slot = GetRandomActiveEmptySlot();
         if (slot != null && recipe.revealed && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
             UpdateCurrency(-recipe.currencyA, -recipe.currencyB, false);
@@ -764,6 +765,19 @@ public class GameController : MonoBehaviour
             {
                 return slot;
             }
+        }
+
+        return null;
+    }
+
+    Slot GetRandomActiveEmptySlot()
+    {
+        var filteredSlots = slots.FindAll(slot => slot.active && slot.recipe == null);
+        if (filteredSlots.Count > 0)
+        {
+            System.Random random = new System.Random();
+            int randomIndex = random.Next(0, filteredSlots.Count);
+            return filteredSlots[randomIndex];
         }
 
         return null;

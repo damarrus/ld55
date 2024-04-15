@@ -286,5 +286,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         tooltipObject.transform.Find("RecipeDescription").GetComponent<TMP_Text>().text = isImproved
             ? recipe.improvedDescriptionText + "\n\r" + "Lifetime: " + (recipe.improvedLifeTime * realLifeTimeMult).ToString()
             : recipe.descriptionText + "\n\r" + "Lifetime: " + (recipe.lifeTime * realLifeTimeMult).ToString();
+
+        if (recipe.id == 4)
+        {
+            tooltipObject.transform.Find("Button").gameObject.SetActive(false);
+        }
     }
 }

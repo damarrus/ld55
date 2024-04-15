@@ -139,8 +139,17 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             rec.startAction(this);
             InitTooltip();
+            if (isImproved)
+            {
+                gameController.playSoundImprovedSummon();
+            } else
+            {
+                gameController.playSoundSummon();
+            }
         } else
         {
+            if (recipe != null) gameController.playSoundDeath();
+
             nameTextComponent.text = "Empty";
             nameTextComponent.color = Color.white;
             lifeTimeTextComponent.text = "";

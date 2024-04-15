@@ -56,7 +56,7 @@ MonoBehaviour:
   currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
-  baseImproveChance: 5
+  baseImproveChance: 8
   catId: 1
   catName: Cat
   catDescription: Increase increment A +2
@@ -100,7 +100,9 @@ MonoBehaviour:
   mushroomLifeTime: 30
   mushroomImprovedLifeTime: 16
   mushroomEndAddA: 15
-  mushroomImprovedEndAddA: 50
+  mushroomEndAddB: 0
+  mushroomImprovedEndAddA: 0
+  mushroomImprovedEndAddB: 5
   druidId: 5
   druidName: Druid
   druidDescription: Gives +3 pentagram
@@ -147,7 +149,7 @@ MonoBehaviour:
   pteroDescription: Gives x2 A
   pteroImprovedDescription: Gives x2 A
   pteroPriceA: 0
-  pteroPriceB: 3
+  pteroPriceB: 5
   pteroLifeTime: 2
   pteroImprovedLifeTime: 2
   pteroMultInstantlyAdd: 2

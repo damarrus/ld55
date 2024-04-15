@@ -95,7 +95,9 @@ public class GameController : MonoBehaviour
     public int mushroomLifeTime = 60;
     public int mushroomImprovedLifeTime = 60;
     public int mushroomEndAddA = 20;
+    public int mushroomEndAddB = 0;
     public int mushroomImprovedEndAddA = 100;
+    public int mushroomImprovedEndAddB = 100;
     [Space]
     public int druidId = 5;
     public string druidName = "Druid";
@@ -227,8 +229,8 @@ public class GameController : MonoBehaviour
             { 5, 7   }, { 6, 10  },
             { 7, 14  }, { 8, 6   },
             { 9, 2   }, { 10, 9  },
-            { 11, 13 }, { 12, 11 },
-            { 13, 12 }, { 14, 8 },
+            { 11, 13 }, { 12, 8 },
+            { 13, 12 }, { 14, 11 },
             {       15, 15       }
         };
 
@@ -236,18 +238,18 @@ public class GameController : MonoBehaviour
         RecipesReveal = new Dictionary<int, List<int>>()
         {
             { 1,  new List<int>() {  } }, 
-            { 2,  new List<int>() { 13, 11, 12, 8 } }, 
+            { 2,  new List<int>() { 13, 8 } }, 
             { 3,  new List<int>() { 5, 4 } },
             { 4,  new List<int>() { 7, 10 } },
             { 5,  new List<int>() { 7, 10 } },
             { 6,  new List<int>() { 2, 9 } },
             { 7,  new List<int>() { 14, 6 } },
-            { 8,  new List<int>() {  } },
+            { 8,  new List<int>() { 12, 11 } },
             { 9,  new List<int>() {  } },
-            { 10, new List<int>() { 14, 16 } },
+            { 10, new List<int>() { 14, 6 } },
             { 11, new List<int>() {  } },
             { 12, new List<int>() {  } },
-            { 13, new List<int>() {  } },
+            { 13, new List<int>() { 12, 11 } },
             { 14, new List<int>() { 2, 9 } },
             { 15, new List<int>() {  } },
         };
@@ -336,8 +338,16 @@ public class GameController : MonoBehaviour
             }, (slot) =>
             {
                 var deltaA = slot.isImproved ? mushroomImprovedEndAddA : mushroomEndAddA;
-                var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
-                slot.createFlyOut(realDeltaA, true);
+                var deltaB = slot.isImproved ? mushroomImprovedEndAddB : mushroomEndAddB;
+                var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, deltaB);
+                if (slot.isImproved)
+                {
+                    slot.createFlyOut(realDeltaB, false);
+                }
+                else
+                {
+                    slot.createFlyOut(realDeltaA, true);
+                }
             }
         ));
         recipes.Add(InitializeRecipe(druidId, druidPriceA, druidPriceB, druidLifeTime, druidImprovedLifeTime, druidName, druidDescription, druidImprovedDescription,

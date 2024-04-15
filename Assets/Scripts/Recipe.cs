@@ -90,11 +90,11 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             var currency1TextComponent = coinGemPrefab.transform.Find("RecipeCurrency1").GetComponent<TMP_Text>();
             currency1TextComponent.text = currencyA.ToString();
-            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.white : Color.red;
+            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.black : new Color(188f/255f, 42f/255f, 39f/255f, 1f);
 
             var currency2TextComponent = coinGemPrefab.transform.Find("RecipeCurrency2").GetComponent<TMP_Text>();
             currency2TextComponent.text = currencyB.ToString();
-            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.white : Color.red;
+            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.black : new Color(188f/255f, 42f/255f, 39f/255f, 1f);
 
             coinGemPrefab.SetActive(true);
         }
@@ -102,7 +102,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             var currency1TextComponent = coinPrefab.transform.Find("RecipeCurrency1").GetComponent<TMP_Text>();
             currency1TextComponent.text = currencyA.ToString();
-            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.white : Color.red;
+            currency1TextComponent.color = gameController.currencyA >= currencyA ? Color.black : new Color(188f/255f, 42f/255f, 39f/255f, 1f);
 
             coinPrefab.SetActive(true);
         }
@@ -110,7 +110,7 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             var currency2TextComponent = gemPrefab.transform.Find("RecipeCurrency2").GetComponent<TMP_Text>();
             currency2TextComponent.text = currencyB.ToString();
-            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.white : Color.red;
+            currency2TextComponent.color = gameController.currencyB >= currencyB ? Color.black : new Color(188f/255f, 42f/255f, 39f/255f, 1f);
 
             gemPrefab.SetActive(true);
         }

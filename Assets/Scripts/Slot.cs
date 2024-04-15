@@ -25,6 +25,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public int localLifetimeMultiplier = 1;
 
+    public GameObject flamesRed;
+    public GameObject flamesBlack;
+    public GameObject destroyFlames;
     private void Start()
     {
         foreach (var item in GetComponentsInChildren<Canvas>())
@@ -37,11 +40,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         var flyOutObject = Instantiate(flyOutPrefab, transform);
         flyOutObject.transform.position = transform.position;
-        flyOutObject.transform.localPosition = Vector3.zero;
+        flyOutObject.transform.localPosition = Vector3.zero + new Vector3(0f, 0.7f,0f);
 
         var tmpText = flyOutObject.GetComponentInChildren<TMP_Text>();
         tmpText.text = (number > 0 ? "+" : "") + number.ToString();
-        tmpText.color = isA ? Color.green : Color.blue;
+        tmpText.color = isA ? Color.black : new Color(188f/255f, 42f/255f, 39f/255f, 1f);
         StartCoroutine(flyOutCoroutine(flyOutObject));
     }
 
@@ -89,9 +92,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (rec != null )
         {
             nameTextComponent.text = rec.nameText;
-            Debug.Log(improvedChance);
             improvedChance = improvedChance == -1 ? gameController.improveChance : improvedChance;
-            
             
             if (Random.Range(0, 100) < improvedChance)
             {
@@ -110,10 +111,20 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             for (int i = 0; i < prefabList.Count; i++)
             {
-                prefabList[i].SetActive(i == rec.id - 1);
+                //prefabList[i].SetActive(i == rec.id - 1);
                 if (i == rec.id - 1)
                 {
+                    StartCoroutine(ActivateObjectAfterDelay(prefabList[i], 0.3f));
                     prefabList[i].transform.Find("upgrade").gameObject.SetActive(isImproved);
+                    if (isImproved)
+                    {
+                        flamesRed.SetActive(true);
+                    }
+                    else
+                    {
+                        flamesBlack.SetActive(true);
+                    }
+
                     if (Random.Range(0, 100) < 50)
                     {
                         prefabList[i].transform.localScale = new Vector3(-prefabList[i].transform.localScale.x, prefabList[i].transform.localScale.y, prefabList[i].transform.localScale.z);
@@ -143,13 +154,49 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             for (int i = 0; i < prefabList.Count; i++)
             {
-                prefabList[i].SetActive(false);
+                StartCoroutine(ScaleDownAndRestore(prefabList[i]));
+                //prefabList[i].SetActive(false);
             }
             var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
             tooltipObject.SetActive(false);
         }
     }
+    
+    IEnumerator ActivateObjectAfterDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
 
+        obj.SetActive(true);
+    }
+    
+    IEnumerator ScaleDownAndRestore(GameObject obj)
+    {
+        Animator animator = obj.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.enabled = false;
+        }
+        Vector3 initialScale = obj.transform.localScale;
+        float timer = 0f;
+        float duration = 0.2f;
+        while (timer + 0.03f < duration)
+        {
+            float t = timer / duration;
+            obj.transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        obj.transform.localScale = Vector3.zero; 
+        
+        obj.transform.localScale = initialScale;
+        if (animator != null)
+        {
+            animator.enabled = true;
+        }
+        obj.SetActive(false);
+        destroyFlames.SetActive(true);
+    }
+    
     public void increaseLifeTime(int newSnakeLifetimeMultiplier)
     {
         var lifeTimeMult = newSnakeLifetimeMultiplier - localLifetimeMultiplier;

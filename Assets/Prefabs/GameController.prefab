@@ -43,6 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a33e51881f382e4ab9b2b7de681ebfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseButton: {fileID: 0}
+  playButton: {fileID: 0}
+  muteButton: {fileID: 0}
+  unmuteButton: {fileID: 0}
+  audioSource: {fileID: 0}
   Currency1Component: {fileID: 0}
   Currency2Component: {fileID: 0}
   recipesContainer: {fileID: 0}
@@ -56,7 +61,7 @@ MonoBehaviour:
   currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
-  baseImproveChance: 8
+  baseImproveChance: 7
   catId: 1
   catName: Cat
   catDescription: Increase increment A +2
@@ -193,8 +198,8 @@ MonoBehaviour:
   jokerPriceB: 0
   jokerLifeTime: 150
   jokerImprovedLifeTime: 400
-  jokerMultChanceToImprove: 3
-  jokerImprovedMultChanceToImprove: 10
+  jokerMultChanceToImprove: 4
+  jokerImprovedMultChanceToImprove: 15
   motherCatId: 14
   motherCatName: MotherCat
   motherCatDescription: Spawn cats every 5s

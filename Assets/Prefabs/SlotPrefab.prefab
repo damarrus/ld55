@@ -15267,6 +15267,7 @@ MonoBehaviour:
   flamesRed: {fileID: 1228654707266851380}
   flamesBlack: {fileID: 2809832553572442542}
   destroyFlames: {fileID: 323598558117859001}
+  primePrefab: {fileID: 1711003150197875778, guid: a4adbc2734ad28e48837fc666b491500, type: 3}
 --- !u!212 &4998253600214082792
 SpriteRenderer:
   m_ObjectHideFlags: 0

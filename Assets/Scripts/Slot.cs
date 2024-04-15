@@ -28,6 +28,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject flamesRed;
     public GameObject flamesBlack;
     public GameObject destroyFlames;
+    public GameObject primePrefab;
     private void Start()
     {
         foreach (var item in GetComponentsInChildren<Canvas>())
@@ -40,7 +41,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         var flyOutObject = Instantiate(flyOutPrefab, transform);
         flyOutObject.transform.position = transform.position;
-        flyOutObject.transform.localPosition = Vector3.zero + new Vector3(0f, 0.7f,0f);
+        flyOutObject.transform.localPosition = Vector3.zero + new Vector3(0f, 0.3f,0f);
 
         var tmpText = flyOutObject.GetComponentInChildren<TMP_Text>();
         tmpText.text = (number > 0 ? "+" : "") + number.ToString();
@@ -50,7 +51,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     IEnumerator flyOutCoroutine(GameObject obj)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         Destroy(obj);
     }
 
@@ -119,6 +120,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     if (isImproved)
                     {
                         flamesRed.SetActive(true);
+                        GameObject prime = Instantiate(primePrefab, new Vector3(-2f, 0f, 0f), Quaternion.identity );
+                        Destroy(prime, 0.75f);
                     }
                     else
                     {

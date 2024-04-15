@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Win : MonoBehaviour
+public class StartScript : MonoBehaviour
 {
     public GameObject fadeOutObject;
     public Animation fadeInAnimation;
@@ -29,7 +29,7 @@ public class Win : MonoBehaviour
     {
         fadeInAnimation.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("SampleScene");
     }
 
     IEnumerator fadeOutCoroutine()

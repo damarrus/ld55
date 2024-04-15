@@ -22,6 +22,9 @@ public class GameController : MonoBehaviour
     public GameObject recipePrefab;
     public GameObject slotPrefab;
 
+    public Animation fadeInAnimation;
+    public GameObject fadeOutObject;
+
     public int improveChance = 0;
 
     public int currencyA = 0;
@@ -285,6 +288,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(fadeOutCoroutine());
         audioSource.Play();
 
         improveChance = baseImproveChance;
@@ -588,12 +592,25 @@ public class GameController : MonoBehaviour
 
     }
 
+    IEnumerator fadeInCoroutine()
+    {
+        Debug.Log("WIN!");
+        fadeInAnimation.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene("WinScene");
+    }
+
+    IEnumerator fadeOutCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        fadeOutObject.SetActive(false);
+    }
+
     public void PayRecipe(Recipe recipe)
     {
         if (recipe.id == 15 && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {
-            Debug.Log("WIN!");
-            SceneManager.LoadScene("WinScene");
+            StartCoroutine(fadeInCoroutine());
             return;
         }
         var slot = GetFirstActiveEmptySlot();

@@ -10,6 +10,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject pauseButton;
+    public GameObject playButton;
+    public GameObject muteButton;
+    public GameObject unmuteButton;
+    public AudioSource audioSource;
     public TextMeshProUGUI Currency1Component;
     public TextMeshProUGUI Currency2Component;
     public GameObject recipesContainer;
@@ -265,6 +270,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        audioSource.Play();
+
         improveChance = baseImproveChance;
         InitConfig();
 
@@ -754,7 +761,31 @@ public class GameController : MonoBehaviour
 
     public void togglePause()
     {
-        Time.timeScale = Time.timeScale == 0f ? 1f : 0f;
+        if (Time.timeScale == 0f) {
+            Time.timeScale = 1f;
+            pauseButton.SetActive(true);
+            playButton.SetActive(false);
+        } else
+        {
+            Time.timeScale = 0f;
+            pauseButton.SetActive(false);
+            playButton.SetActive(true);
+        }
+    }
+
+    public void ToggleSound()
+    {
+        if (audioSource.mute)
+        {
+            audioSource.mute = false;
+            muteButton.SetActive(true);
+            unmuteButton.SetActive(false);
+        } else
+        {
+            audioSource.mute = true;
+            muteButton.SetActive(false);
+            unmuteButton.SetActive(true);
+        }
     }
 
     public string makeTimeString(int t)

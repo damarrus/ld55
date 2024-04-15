@@ -290,7 +290,14 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void InitTooltip()
     {
         tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().text = isImproved ? recipe.improvedNameText : recipe.nameText;
-        if (isImproved) tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = new Color(188f/255f, 42f/255f, 39f/255f, 1f);
+        if (isImproved)
+        {
+            tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = new Color(188f / 255f, 42f / 255f, 39f / 255f, 1f);
+        }
+        else
+        {
+            tooltipObject.transform.Find("RecipeName").GetComponent<TMP_Text>().color = Color.black;
+        }
 
         var realLifeTimeMult = recipe.id == 7
             ? isImproved ? gameController.snakeImprovedMultLifetime : gameController.snakeMultLifetime

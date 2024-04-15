@@ -86,7 +86,10 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void setHasEmptySlot(bool hasEmptySlot)
     {
-        Icon.GetComponent<SpriteRenderer>().color = hasEmptySlot ? Color.white : new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
+        if (id != 15)
+        {
+            Icon.GetComponent<SpriteRenderer>().color = hasEmptySlot ? Color.white : new Color(150f / 255f, 150f / 255f, 150f / 255f, 1f);
+        }
     }
 
     public void CheckAndSetAvailable(int cur1, int cur2)

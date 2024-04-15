@@ -566,8 +566,7 @@ public class GameController : MonoBehaviour
 
             }, (slot) =>
             {
-                Debug.Log("WIN!");
-                SceneManager.LoadScene("WinScene");
+                
             }, (slot) =>
             {
 
@@ -589,6 +588,12 @@ public class GameController : MonoBehaviour
 
     public void PayRecipe(Recipe recipe)
     {
+        if (recipe.id == 15 && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
+        {
+            Debug.Log("WIN!");
+            SceneManager.LoadScene("WinScene");
+            return;
+        }
         var slot = GetFirstActiveEmptySlot();
         if (slot != null && recipe.revealed && recipe.currencyA <= currencyA && recipe.currencyB <= currencyB)
         {

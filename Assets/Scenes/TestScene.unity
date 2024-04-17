@@ -419,6 +419,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 9_Wing
       objectReference: {fileID: 0}
+    - target: {fileID: 4419950818696762614, guid: f0b20f29c6911a341a834d25c737229f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4419950818696762615, guid: f0b20f29c6911a341a834d25c737229f, type: 3}
       propertyPath: m_RootOrder
       value: 0

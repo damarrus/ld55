@@ -65,6 +65,7 @@ MonoBehaviour:
   currencyA: 0
   currencyB: 0
   globalLifetimeMultiplier: 1
+  globalSlotCounter: 4
   isFirst: 1
   currencyABaseMax: 30
   currencyBBaseMax: 10

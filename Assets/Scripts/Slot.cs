@@ -265,7 +265,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SnakePayHandlerMethod(Slot slot)
     {
-        slot.increaseLifeTime(gameController.globalLifetimeMultiplier);
+        if (slot.recipe.id != 9)
+        {
+            slot.increaseLifeTime(gameController.globalLifetimeMultiplier);
+        }
     }
 
     public void Die()
@@ -279,7 +282,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     IEnumerator showToolTip()
     {
-        yield return new WaitForSeconds(0.5f);
+        if (Time.timeScale > 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
         var tooltipObject = transform.Find("Canvas").Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
     }
@@ -325,6 +331,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (recipe.id == 4)
         {
             tooltipObject.transform.Find("Button").gameObject.SetActive(false);
+        }
+        else
+        {
+            tooltipObject.transform.Find("Button").gameObject.SetActive(true);
         }
     }
 }

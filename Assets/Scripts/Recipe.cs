@@ -166,7 +166,10 @@ public class Recipe : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     IEnumerator showToolTip()
     {
-        yield return new WaitForSeconds(0.5f);
+        if (Time.timeScale > 0)
+        {
+            yield return new WaitForSeconds(0.25f);
+        }
         var tooltipObject = transform.Find("Tooltip").gameObject;
         tooltipObject.SetActive(true);
     }

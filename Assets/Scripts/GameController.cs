@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     
     int maxSlotCount = 12;
     public int globalLifetimeMultiplier = 1;
+    public int globalSlotCounter = 4;
     public bool isFirst = true;
 
     Dictionary<int, int> RecipesOrder { get; set; }
@@ -352,7 +353,7 @@ public class GameController : MonoBehaviour
                 {
                     var rateA = slot.isImproved ? traderImprovedRateA : traderRateA;
                     var rateB = slot.isImproved ? traderImprovedRateB : traderRateB;
-                    if (currencyA >= rateA)
+                    if (currencyA >= rateA && currencyB < currencyBBaseMax)
                     {
                         var (realDeltaA, _) = UpdateCurrency(-rateA, 0, false);
                         var (__, realDeltaB) = UpdateCurrency(0, rateB);
@@ -403,16 +404,19 @@ public class GameController : MonoBehaviour
                     if (blockedSlot == null) break;
 
                     blockedSlot.setActive(true);
-                    slot.paramListInt.Add(blockedSlot.id);
                 }
+                globalSlotCounter += slotsCount;
             }, (slot) =>
             {
-                slot.paramListInt.ForEach(slotId =>
+                var slotsCount = slot.isImproved ? druidImprovedAddSlots : druidAddSlots;
+                globalSlotCounter -= slotsCount;
+                int killSlots = Math.Min(slotsCount, maxSlotCount - globalSlotCounter);
+                for (int i = 1; i <= killSlots; i++)
                 {
-                    var s = slots.Find(slot => slot.id == slotId);
-                    s.setActive(false);
-                });
-                slot.paramListInt = new List<int>();
+                    var activeSlot = GetRandomActiveSlot();
+                    if (activeSlot == null) break;
+                    activeSlot.setActive(false);
+                }
             }
         ));
         recipes.Add(InitializeRecipe(gluttonId, gluttonPriceA, gluttonPriceB, gluttonLifeTime, gluttonImprovedLifeTime, gluttonName, gluttonDescription, gluttonImprovedDescription, gluttonImprovedName,
@@ -426,7 +430,7 @@ public class GameController : MonoBehaviour
                     var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null && (s.recipe.id == 1 || s.recipe.id == 4));
                     if (filteredSlots.Count == 0) filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
 
-                    if (filteredSlots.Count > 0)
+                    if (filteredSlots.Count > 0 && currencyB < currencyBBaseMax)
                     {
                         System.Random random = new System.Random();
                         int randomIndex = random.Next(0, filteredSlots.Count);
@@ -823,6 +827,23 @@ public class GameController : MonoBehaviour
         if (filteredSlots.Count == 0)
         {
             filteredSlots = slots.FindAll(slot => !slot.active);
+            if (filteredSlots.Count == 0)
+            {
+                return null;
+            }
+        }
+
+        System.Random random = new System.Random();
+        int randomIndex = random.Next(0, filteredSlots.Count);
+        return filteredSlots[randomIndex];
+    }
+    
+    Slot GetRandomActiveSlot()
+    {
+        var filteredSlots = slots.FindAll(slot => slot.active && slot.recipe != null);
+        if (filteredSlots.Count == 0)
+        {
+            filteredSlots = slots.FindAll(slot => slot.active);
             if (filteredSlots.Count == 0)
             {
                 return null;

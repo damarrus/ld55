@@ -216,6 +216,7 @@ public class GameController : MonoBehaviour
     public int octopusLifeTime = 10;
     public int octopusImprovedLifeTime = 20;
     public int octopusAddAForEach = 1;
+    public int octopusAddAForEachImproved = 1;
     public int octopusAddForEachDelay = 2;
     [Space]
     public int jokerId = 13;
@@ -277,7 +278,7 @@ public class GameController : MonoBehaviour
             { 6,  new List<int>() { 2, 9 } },
             { 7,  new List<int>() { 14, 6 } },
             { 8,  new List<int>() { 12, 11 } },
-            { 9,  new List<int>() {  } },
+            { 9,  new List<int>() { 13, 8 } },
             { 10, new List<int>() { 14, 6 } },
             { 11, new List<int>() {  } },
             { 12, new List<int>() {  } },
@@ -535,7 +536,7 @@ public class GameController : MonoBehaviour
                 slot.actionCoroutine = StartCoroutine(Do(() =>
                 {
                     var filteredSlots = slots.FindAll(s => s.id != slot.id && s.recipe != null);
-                    var deltaA = octopusAddAForEach * filteredSlots.Count;
+                    var deltaA = slot.isImproved ? octopusAddAForEachImproved * filteredSlots.Count : octopusAddAForEach * filteredSlots.Count;
                     var (realDeltaA, realDeltaB) = UpdateCurrency(deltaA, 0);
                     slot.createFlyOut(realDeltaA, true);
                 }, octopusAddForEachDelay));

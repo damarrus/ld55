@@ -6042,8 +6042,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Congratulations, young adept.\r\nYou have managed to summon \r\n<size=50><color=#bc2e24><b>Faina
-    of the Ruined Flame!\r</b></color></size>\nNow your fate is now sealed."
+  m_text: "Congratulations, young adept\nYou have managed to summon \r\n<size=50><color=#bc2e24><b>Faina
+    of the Ruined Flame!\r</b></color></size>\nYour fate is now sealed"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0aedf5fd56a72bf4f95200e3bcb4d6b3, type: 2}
   m_sharedMaterial: {fileID: -7709432553396372783, guid: 0aedf5fd56a72bf4f95200e3bcb4d6b3, type: 2}

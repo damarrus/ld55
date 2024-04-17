@@ -54,10 +54,18 @@ MonoBehaviour:
   slotsContainer: {fileID: 0}
   recipePrefab: {fileID: 1343448187518009651, guid: 105685943611ccd4d9961f4aca976b10, type: 3}
   slotPrefab: {fileID: 4543251669645451873, guid: 1050924d4a6d8c649a275e179bb79c9f, type: 3}
+  fadeInAnimation: {fileID: 0}
+  fadeOutObject: {fileID: 0}
+  audioCoin: {fileID: 0}
+  audioCrystall: {fileID: 0}
+  audioSummon: {fileID: 0}
+  audioImprovedSummon: {fileID: 0}
+  audioDeath: {fileID: 0}
   improveChance: 5
   currencyA: 0
   currencyB: 0
   globalLifetimeMultiplier: 1
+  isFirst: 1
   currencyABaseMax: 30
   currencyBBaseMax: 10
   startSlotCount: 4
@@ -79,13 +87,13 @@ MonoBehaviour:
   greedDescription: Increases the maximum of <sprite=0> and <sprite=1> (x2)
   greedImprovedName: Elder Greedo
   greedImprovedDescription: Greatly increases the maximum of <sprite=0> and <sprite=1>
-    (x3)
+    (x5)
   greedPriceA: 10
   greedPriceB: 10
   greedLifeTime: 300
   greedImprovedLifeTime: 1000
   greedMultMaxA: 2
-  greedImprovedMultMaxA: 3
+  greedImprovedMultMaxA: 5
   traderId: 3
   traderName: Coinflipper
   traderDescription: Converts 5 <sprite=0> to 1 <sprite=1>
@@ -126,15 +134,16 @@ MonoBehaviour:
   druidImprovedAddSlots: 5
   gluttonId: 6
   gluttonName: Hungry Imp
-  gluttonDescription: Every 10 seconds eats another Imp and gives you 2 <sprite=1>
+  gluttonDescription: Every 10 seconds eats another Imp and gives you 3 <sprite=1>
   gluttonImprovedName: Glutton Devil
-  gluttonImprovedDescription: Every 10 seconds eats another Imp and gives you 4 <sprite=1>
+  gluttonImprovedDescription: Every 10 seconds eats another Imp and gives you 10
+    <sprite=1>
   gluttonPriceA: 0
   gluttonPriceB: 10
   gluttonLifeTime: 60
   gluttonImprovedLifeTime: 60
-  gluttonConvertAddB: 2
-  gluttonImprovedConvertAddB: 4
+  gluttonConvertAddB: 3
+  gluttonImprovedConvertAddB: 10
   gluttonConvertAddDelay: 10
   snakeId: 7
   snakeName: Longnecker
@@ -160,26 +169,26 @@ MonoBehaviour:
   eyeImprovedSummonedAddB: 10
   pteroId: 9
   pteroName: Fiend
-  pteroDescription: Multiplies the amount of <sprite=0> (x2)
+  pteroDescription: Instantly multiplies the amount of <sprite=0> (x2)
   pteroImprovedName: Foul Fiend
-  pteroImprovedDescription: Multiplies the amount of <sprite=0> (x3)
+  pteroImprovedDescription: Instantly multiplies the amount of <sprite=0> (x3)
   pteroPriceA: 0
   pteroPriceB: 5
   pteroLifeTime: 2
   pteroImprovedLifeTime: 2
-  pteroMultInstantlyAdd: 2
-  pteroImprovedMultInstantlyAdd: 3
+  pteroMultInstantlyAdd: 1
+  pteroImprovedMultInstantlyAdd: 2
   spiderId: 10
   spiderName: Hell Spider
   spiderDescription: Gives 1 <sprite=1> every 5 seconds
   spiderImprovedName: Flame Weaver
-  spiderImprovedDescription: Gives 2 <sprite=1> every 5 seconds
+  spiderImprovedDescription: Gives 3 <sprite=1> every 5 seconds
   spiderPriceA: 0
   spiderPriceB: 5
   spiderLifeTime: 25
   spiderImprovedLifeTime: 50
   spiderAddB: 1
-  spiderImprovedAddB: 2
+  spiderImprovedAddB: 3
   spiderAddDelay: 5
   fireId: 11
   fireName: Flame Ifrit
@@ -204,6 +213,7 @@ MonoBehaviour:
   octopusLifeTime: 80
   octopusImprovedLifeTime: 300
   octopusAddAForEach: 2
+  octopusAddAForEachImproved: 4
   octopusAddForEachDelay: 4
   jokerId: 13
   jokerName: Lucky BUB
@@ -224,7 +234,7 @@ MonoBehaviour:
   motherCatPriceA: 30
   motherCatPriceB: 0
   motherCatLifeTime: 300
-  motherCatImprovedLifeTime: 1000
+  motherCatImprovedLifeTime: 600
   motherCatImprovedChanceToImprove: 50
   motherCatSummonDelay: 6
   dragonId: 15
@@ -234,5 +244,5 @@ MonoBehaviour:
   dragonImprovedDescription: The goal of the game is to summon her!
   dragonPriceA: 200
   dragonPriceB: 50
-  dragonLifeTime: 999999
-  dragonImprovedLifeTime: 999999
+  dragonLifeTime: 39960
+  dragonImprovedLifeTime: 39960
